@@ -3,12 +3,22 @@ import { sortQueryMap } from '../types/FilterInterfaces';
 
 const BASE_URL='https://dummyjson.com/products'
 
+const sortQueryMap: sortQueryMap = {
+  none: '',
+  priceAsc: '&sortBy=price&order=asc',
+  priceDesc: '&sortBy=price&order=desc',
+  nameAsc: '&sortBy=title&order=asc',
+  nameDesc: '&sortBy=title&order=desc',
+}
+
 export const fetchProducts = async  (
   select: string,
   limit = 20,
   skip = 0,
+  sort = 'none'
 ): Promise<ProductResponse> => {
-  const url = `${BASE_URL}?limit=${limit}&skip=${skip}&select=${select}`;
+  const sortByQuery = sortQueryMap[sort]
+  const url = `${BASE_URL}?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
 
   try {
     const response = await fetch(url);
@@ -33,13 +43,6 @@ export const fetchProductsByCategoy = async  (
   skip = 0,
   sort = 'none'
 ): Promise<ProductResponse> => {
-  const sortQueryMap: sortQueryMap = {
-    none: '',
-    priceAsc: '&sortBy=price&order=asc',
-    priceDesc: '&sortBy=price&order=desc',
-    nameAsc: '&sortBy=name&order=asc',
-    nameDesc: '&sortBy=name&order=desc',
-  }
   const sortByQuery = sortQueryMap[sort]
   const url = `${BASE_URL}/category/${category}/?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
 
@@ -64,9 +67,11 @@ export const searchProducts = async (
   query: string,
   select: string,
   limit = 20,
-  skip = 0
+  skip = 0,
+  sort = 'none'
 ): Promise<ProductResponse> => {
-  const url = `${BASE_URL}/search?q=${query}&&limit=${limit}&skip=${skip}&select=${select}`;
+  const sortByQuery = sortQueryMap[sort]
+  const url = `${BASE_URL}/search?q=${query}&&limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

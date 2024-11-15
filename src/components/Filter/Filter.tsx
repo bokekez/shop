@@ -42,7 +42,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   };
 
   const handleSubmit = () => {
-    onApplyFilters(selectedCategory, minPrice ?? 0, maxPrice ?? Infinity, sortBy);
+    onApplyFilters(selectedCategory, minPrice, maxPrice, sortBy);
   };
 
   return (

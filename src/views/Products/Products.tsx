@@ -53,7 +53,8 @@ const Products: React.FC = () => {
           searchQuery,
           PRODUCTS_SELECT,
           PRODUCTS_PER_PAGE,
-          skip
+          skip,
+          filters.sortBy
         );
       }
       if (filters.category) {
@@ -77,7 +78,7 @@ const Products: React.FC = () => {
 
         return response
       }
-      return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip);
+      return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip, filters.sortBy);
     };
 
     loadProducts();
