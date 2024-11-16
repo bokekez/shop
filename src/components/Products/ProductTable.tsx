@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './ProductTable.module.css';
 import { ProductTableProps } from '../../types/ProductInterfaces';
+import { Link } from 'react-router-dom';
 
 const ProductTable: React.FC<ProductTableProps> = ({
   products,
@@ -31,13 +32,19 @@ const ProductTable: React.FC<ProductTableProps> = ({
               {products.map((product) => (
                 <tr key={product.id}>
                   <td data-label="Thumbnail">
-                    <img
-                      src={product.thumbnail}
-                      alt={product.title}
-                      className={styles.thumbnail}
-                    />
+                    <Link to={`/product/${product.id}`} className={styles.productLink}>
+                      <img
+                        src={product.thumbnail}
+                        alt={product.title}
+                        className={styles.thumbnail}
+                      />
+                    </Link> 
                   </td>
-                  <td data-label="Title">{product.title}</td>
+                  <td data-label="Title">
+                    <Link to={`/product/${product.id}`} className={styles.productLink}>
+                      {product.title}
+                    </Link>
+                  </td>
                   <td data-label="Price">${product.price.toFixed(2)}</td>
                   <td data-label="Description">
                     {product.description.slice(0, 100)}...

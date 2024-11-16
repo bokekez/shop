@@ -12,7 +12,6 @@ export interface Product {
 }
 
 export interface ProductResponse {
-  //[x: string]: any;
   products: Product[];
   total: number;
 }
@@ -28,4 +27,17 @@ export interface ProductTableProps {
 
 export interface SearchProps {
   onSearch: (query: string) => void;
+}
+
+export interface ProductDetailsInterface {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  rating: number;
+  stock: number;
+  images: string[]; 
+  brand?: string;   
+  discountPercentage?: number; 
 }
