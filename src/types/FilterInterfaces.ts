@@ -19,7 +19,7 @@ export interface Filters {
   sortBy?: string;
 }
 
-export interface sortQueryMap {
+export interface sortQueryInterface {
   none: string,
   priceAsc: string,
   priceDesc: string,
