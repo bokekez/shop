@@ -37,7 +37,7 @@ export interface ProductDetailsInterface {
   category: string;
   rating: number;
   stock: number;
-  images: string[]; 
-  brand?: string;   
-  discountPercentage?: number; 
+  images: string[];
+  brand?: string;
+  discountPercentage?: number;
 }

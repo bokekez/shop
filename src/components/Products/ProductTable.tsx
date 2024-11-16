@@ -32,16 +32,22 @@ const ProductTable: React.FC<ProductTableProps> = ({
               {products.map((product) => (
                 <tr key={product.id}>
                   <td data-label="Thumbnail">
-                    <Link to={`/product/${product.id}`} className={styles.productLink}>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className={styles.productLink}
+                    >
                       <img
                         src={product.thumbnail}
                         alt={product.title}
                         className={styles.thumbnail}
                       />
-                    </Link> 
+                    </Link>
                   </td>
                   <td data-label="Title">
-                    <Link to={`/product/${product.id}`} className={styles.productLink}>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className={styles.productLink}
+                    >
                       {product.title}
                     </Link>
                   </td>

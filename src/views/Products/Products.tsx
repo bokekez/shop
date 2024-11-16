@@ -3,22 +3,29 @@ import ProductTable from '../../components/Products/ProductTable';
 import Filter from '../../components/Filter/Filter';
 import styles from './Products.module.css';
 import Search from '../../components/Search/Search';
-import { showToastifyError, showToastifyWarning } from '../../config/toastifyConfig';
-import { fetchProducts, fetchProductsByCategoy, searchProducts } from '../../api/productApi';
+import {
+  showToastifyError,
+  showToastifyWarning,
+} from '../../config/toastifyConfig';
+import {
+  fetchProducts,
+  fetchProductsByCategoy,
+  searchProducts,
+} from '../../api/productApi';
 import { Product } from '../../types/ProductInterfaces';
-import { Filters }from '../../types/FilterInterfaces';
+import { Filters } from '../../types/FilterInterfaces';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
-  const [filterChange, setFilterChange] = useState(false)
+  const [filterChange, setFilterChange] = useState(false);
   const [filters, setFilters] = useState<Filters>({
     category: null,
     minPrice: undefined,
     maxPrice: undefined,
-    sortBy: undefined
+    sortBy: undefined,
   });
   const [searchQuery, setSearchQuery] = useState('');
   const PRODUCTS_PER_PAGE = 20;
@@ -58,8 +65,8 @@ const Products: React.FC = () => {
         );
       }
       if (filters.category) {
-        const minPriceNormalized = filters.minPrice || 0
-        const maxPriceNormalized = filters.maxPrice || Infinity
+        const minPriceNormalized = filters.minPrice || 0;
+        const maxPriceNormalized = filters.maxPrice || Infinity;
 
         const response = await fetchProductsByCategoy(
           filters.category,
@@ -74,15 +81,26 @@ const Products: React.FC = () => {
             product &&
             product.price >= minPriceNormalized &&
             product.price <= maxPriceNormalized
-        )
+        );
 
-        return response
+        return response;
       }
-      return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip, filters.sortBy);
+      return await fetchProducts(
+        PRODUCTS_SELECT,
+        PRODUCTS_PER_PAGE,
+        skip,
+        filters.sortBy
+      );
     };
 
     loadProducts();
-  }, [PRODUCTS_SELECT, PRODUCTS_PER_PAGE, currentPage, searchQuery, filterChange]);
+  }, [
+    PRODUCTS_SELECT,
+    PRODUCTS_PER_PAGE,
+    currentPage,
+    searchQuery,
+    filterChange,
+  ]);
 
   const lastPage = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 
@@ -102,33 +120,33 @@ const Products: React.FC = () => {
     category: string | null,
     minPrice?: number | undefined,
     maxPrice?: number | undefined,
-    sortBy?: string | undefined,
+    sortBy?: string | undefined
   ) => {
-    if(!category && (minPrice || maxPrice)) showToastifyWarning('Categoy must be selected to apply min or max price')
+    if (!category && (minPrice || maxPrice))
+      showToastifyWarning('Categoy must be selected to apply min or max price');
     setFilters({ category, minPrice, maxPrice, sortBy });
-    setFilterChange(filterChange ? false : true)
-    setCurrentPage(1); 
+    setFilterChange(filterChange ? false : true);
+    setCurrentPage(1);
   };
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
-
 
   return (
     <div className={styles.productsContainer}>
       <Search onSearch={handleSearch} />
       <div className={styles.tableContainer}>
-      <Filter onApplyFilters={handleApplyFilters}/>
-      <ProductTable
-        products={products}
-        loading={loading}
-        currentPage={currentPage}
-        lastPage={lastPage}
-        onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
-      />
+        <Filter onApplyFilters={handleApplyFilters} />
+        <ProductTable
+          products={products}
+          loading={loading}
+          currentPage={currentPage}
+          lastPage={lastPage}
+          onNextPage={handleNextPage}
+          onPreviousPage={handlePreviousPage}
+        />
       </div>
     </div>
   );

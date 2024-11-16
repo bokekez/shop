@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Filter.module.css';
 import { fetchCategories } from '../../api/categoriesApi';
-import { Categories, FilterProps } from "../../types/FilterInterfaces";
+import { Categories, FilterProps } from '../../types/FilterInterfaces';
 import { showToastifyError } from '../../config/toastifyConfig';
 
 const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
@@ -9,7 +9,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [minPrice, setMinPrice] = useState<number | undefined>();
   const [maxPrice, setMaxPrice] = useState<number | undefined>();
-  const [sortBy, setSortBy] = useState<string>(); 
+  const [sortBy, setSortBy] = useState<string>();
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -24,7 +24,9 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
     loadCategories();
   }, []);
 
-  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const category = event.target.value || null;
     setSelectedCategory(category);
   };
@@ -72,7 +74,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
             value={minPrice}
             onChange={handleMinPriceChange}
             placeholder="Min"
-            min={0} 
+            min={0}
             className={styles.priceInput}
           />
           <input
@@ -80,7 +82,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
             value={maxPrice}
             onChange={handleMaxPriceChange}
             placeholder="Max"
-            min={0} 
+            min={0}
             className={styles.priceInput}
           />
         </div>
@@ -101,7 +103,9 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
         </select>
       </div>
 
-      <button className={styles.applyButton} onClick={handleSubmit}>Apply Filters</button>
+      <button className={styles.applyButton} onClick={handleSubmit}>
+        Apply Filters
+      </button>
     </div>
   );
 };

@@ -20,9 +20,9 @@ export interface Filters {
 }
 
 export interface sortQueryInterface {
-  none: string,
-  priceAsc: string,
-  priceDesc: string,
-  nameAsc: string,
-  nameDesc: string,
+  none: string;
+  priceAsc: string;
+  priceDesc: string;
+  nameAsc: string;
+  nameDesc: string;
 }
