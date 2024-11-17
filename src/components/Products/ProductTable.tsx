@@ -26,7 +26,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
         price: product.price,
         quantity: 1,
       };
-    cartContext.addToCart(cartItem);
+    cartContext?.addToCart(cartItem);
   };
 
   return (

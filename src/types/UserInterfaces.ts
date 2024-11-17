@@ -13,4 +13,5 @@ export interface AuthContextType {
 
 export interface UserResponse extends User{
   accessToken: string;
+  message?: string;
 }
