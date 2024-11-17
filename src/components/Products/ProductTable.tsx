@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './ProductTable.module.css';
 import { ProductTableProps } from '../../types/ProductInterfaces';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/authContext';
+import { CartContext } from '../../context/cartContext';
+import { CartItem } from '../../types/CartInterfaces';
 
 const ProductTable: React.FC<ProductTableProps> = ({
   products,
@@ -11,6 +14,21 @@ const ProductTable: React.FC<ProductTableProps> = ({
   onNextPage,
   onPreviousPage,
 }) => {
+  const authContext = useContext(AuthContext);
+  const cartContext = useContext(CartContext);
+
+  console.log(cartContext)
+
+  const handleAddToCart = (product: CartItem) => {
+    const cartItem = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        quantity: 1,
+      };
+    cartContext.addToCart(cartItem);
+  };
+
   return (
     <div>
       {loading && <p>Loading products...</p>}
@@ -26,6 +44,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 <th>Category</th>
                 <th>Rating</th>
                 <th>Stock</th>
+                {authContext?.user?.username && <th>Add to Cart</th>}
               </tr>
             </thead>
             <tbody>
@@ -58,6 +77,16 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   <td data-label="Category">{product.category}</td>
                   <td data-label="Rating">{product.rating}</td>
                   <td data-label="Stock">{product.stock}</td>
+                  {authContext?.user?.username && (
+                    <td data-label="Action">
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        className={styles.addToCartButton}
+                      >
+                        Add to Cart
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
