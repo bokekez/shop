@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './Login.module.css';
 import { loginUser } from '../../api/authApi'
 import {
   showToastifyError,
   showToastifySuccess,
 } from '../../config/toastifyConfig';
-
-interface LoginProps {
-  handleCloseLoginDialog: () => void;
-}
+import { LoginProps } from '../../types/LoginInfercaes';
+import { AuthContext } from '../../context/authContext';
 
 const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const authContext = useContext(AuthContext);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -27,7 +26,14 @@ const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {
 
     try {
       const data = await loginUser(username, password);
-      localStorage.setItem('authToken', data.token);
+      console.log(data)
+      localStorage.setItem('authToken', data.accessToken);
+      authContext?.setUser({
+        id: data.id,
+        username: data.username,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      })
       handleCloseLoginDialog();
       showToastifySuccess(`${username} logged in successfully!`);
     } catch {

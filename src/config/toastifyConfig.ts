@@ -23,16 +23,3 @@ export const showToastifyWarning = (
   message: string,
   toastId?: string | number
 ) => toast.warning(message, { ...defaultOptions, toastId });
-
-/* export const toastContainerOptions: ToastOptions = {
-  position: 'bottom-right',
-  autoClose: 3000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  rtl: false,
-  pauseOnFocusLoss: true,
-  draggable: true,
-  pauseOnHover: true,
-  theme: 'light',
-};
- */

@@ -1,9 +1,10 @@
-const API_URL = 'https://dummyjson.com/auth/login';
+const BASE_URL = 'https://dummyjson.com/auth';
+import { UserResponse } from "../types/UserInterfaces";
 
-export const loginUser = async (username: string, password: string): Promise<any> => {
+export const loginUser = async (username: string, password: string): Promise<UserResponse> => {
   console.log('login', username, password)
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -13,10 +14,24 @@ export const loginUser = async (username: string, password: string): Promise<any
       }),
       credentials: 'omit', 
     }); 
-  
-    if (!response.ok) {
-      throw new Error('Failed to login');
-    } 
+
+    const data = await response.json();
+    return data; 
+  } catch (error) {
+    console.error('Login error:', error);
+    throw error;
+  }
+};
+
+export const checkUserToken = async (token: string): Promise<UserResponse> => {
+  try {
+    const response = await fetch(`${BASE_URL}/me`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`, 
+      }, 
+      credentials: 'omit', 
+    }); 
 
     const data = await response.json();
     return data; 
