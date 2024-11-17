@@ -18,7 +18,7 @@ const ProductDetails: React.FC = () => {
         if (id) {
           const fetchedProduct = await fetchProductById(parseInt(id, 10));
           setProduct(fetchedProduct);
-          setSelectedImage(fetchedProduct.images[0]); 
+          setSelectedImage(fetchedProduct.images[0]);
         }
       } catch {
         showToastifyError('Failed to fetch product details.');
@@ -35,7 +35,7 @@ const ProductDetails: React.FC = () => {
   }
 
   if (!product) {
-    return <p>Product not found.</p>;
+    return showToastifyError('Product does not exist');
   }
 
   const handleImageClick = (image: string) => {
@@ -45,7 +45,11 @@ const ProductDetails: React.FC = () => {
   return (
     <div className={styles.productDetailsContainer}>
       <div className={styles.imageSection}>
-        <img src={selectedImage || product.images[0]} alt={product.title} className={styles.mainImage} />
+        <img
+          src={selectedImage || product.images[0]}
+          alt={product.title}
+          className={styles.mainImage}
+        />
         <div className={styles.imageCarousel}>
           {product.images.map((image, index) => (
             <img
