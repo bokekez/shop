@@ -5,11 +5,15 @@ import cart from '../../resources/cart.png'
 import Login from '../Login/Login';
 import { AuthContext } from '../../context/authContext';
 import arrowDown from '../../resources/down-arrow.png'
+import { CartContext } from '../../context/cartContext';
 
 const NavBar: React.FC = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [logoutDialog, setLogoutDialog] = useState(false);
+  const cartContext = useContext(CartContext);
   const authContext = useContext(AuthContext);
+
+  console.log('nav cart', cartContext)
   
   // const logoutRef = useRef<HTMLDivElement | null>(null);
 

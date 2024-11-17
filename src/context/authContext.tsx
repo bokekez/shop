@@ -3,8 +3,7 @@ import { User, AuthContextType } from '../types/UserInterfaces';
 import { checkUserToken } from '../api/authApi';
 import { showToastifySuccess } from '../config/toastifyConfig';
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User>({
@@ -45,3 +44,5 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export { AuthContext };
