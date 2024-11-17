@@ -3,34 +3,127 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 2rem;
-  background-color: #333;
-  color: #fff;
-  padding: 1rem 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: #1e3a8a; 
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  z-index: 1000; 
 }
 
 .navContainer {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   align-items: center;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .navLinks {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 15px;
 }
 
 .navLinks li a {
-  color: #fff;
   text-decoration: none;
+  color: white;
+  font-size: 16px;
 }
 
-.navLinks li a:hover {
-  color: #ddd;
+.navActions {
+  margin-right: 2rem;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.cartButton,
+.loginButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cartButton:hover,
+.loginButton:hover {
+  color: #61dafb;
+}
+
+.dialogBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 400px;
+  text-align: center;
+}
+
+.closeDialog {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: red;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loginForm label {
+  font-size: 14px;
+  text-align: left;
+}
+
+.loginForm input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submitButton {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submitButton:hover {
+  background-color: #61dafb;
 }
