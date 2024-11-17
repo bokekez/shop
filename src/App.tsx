@@ -4,15 +4,18 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import AppRoutes from './routes/routes';
 import { AuthProvider } from './context/authContext';
+import { CartProvider } from './context/cartContext';
 
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <Router>
-        <ToastContainer />
-        <NavBar />
-        <AppRoutes />
-      </Router>
+      <CartProvider>
+        <Router>
+          <ToastContainer />
+          <NavBar />
+          <AppRoutes />
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 };

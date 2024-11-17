@@ -26,7 +26,9 @@ const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {
 
     try {
       const data = await loginUser(username, password);
-      console.log(data)
+      if(data.message === 'Invalid credentials'){
+        return showToastifyError('Invalid username or password. Please try again.', 'login');
+      } 
       localStorage.setItem('authToken', data.accessToken);
       authContext?.setUser({
         id: data.id,
@@ -48,18 +50,18 @@ const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {
   return (
     <div className={styles.dialogBackdrop} onClick={handleCloseLoginDialog}>
       <div className={styles.dialog} onClick={stopPropagation}>
-        <h2>Login</h2>
         <button onClick={handleCloseLoginDialog} className={styles.closeDialog}>
-          Close
+          X
         </button>
+        <h2>Login</h2>
         <form className={styles.loginForm} onSubmit={handleSubmit}>
           <label>
             Username:
-            <input type="text" value={username} onChange={handleUsernameChange} required />
+            <input type="text" value={username} onChange={handleUsernameChange} required className={styles.loginInput}/>
           </label>
           <label>
             Password:
-            <input type="password" value={password} onChange={handlePasswordChange} required />
+            <input type="password" value={password} onChange={handlePasswordChange} required className={styles.loginInput}/>
           </label>
           <button type="submit" className={styles.submitButton}>
             Submit
