@@ -123,6 +123,10 @@
   gap: 5px;
 }
 
+.loggedContainer a{
+  text-decoration: none;
+}
+
 .downArrow{
   width: 25px;
   height: 25px;

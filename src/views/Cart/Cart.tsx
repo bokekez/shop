@@ -3,18 +3,21 @@ import { CartContext } from '../../context/cartContext';
 import styles from './CartView.module.css';
 import { CartItem } from '../../types/CartInterfaces';
 import { showToastifySuccess } from '../../config/toastifyConfig';
+import { AuthContext } from '../../context/authContext';
+import { Link } from 'react-router-dom';
 
 const Cart: React.FC = () => {
-  const { cartItems, removeFromCart, cartTotals } = useContext(CartContext);
+  const { cartItems, removeFromCart, cartTotals, clearCart } = useContext(CartContext);
+  const authContext = useContext(AuthContext);
   const [removeQuantities, setRemoveQuantities] = useState(
-    cartItems.reduce((acc, item) => ({ ...acc, [item.id]: item.quantity }), {})
+    cartItems.reduce((acc: CartItem, item: CartItem) => ({ ...acc, [item.id]: item.quantity }), {})
   );
 
   const handleInputChange = (id: number, value: string) => {
     const parsedValue = parseInt(value, 10);
-    setRemoveQuantities((prev) => ({
+    setRemoveQuantities((prev: CartItem) => ({
       ...prev,
-      [id]: parsedValue > 0 ? parsedValue : 1, // Ensure positive number.
+      [id]: parsedValue > 0 ? parsedValue : 1, 
     }));
   };
 
@@ -23,6 +26,20 @@ const Cart: React.FC = () => {
     removeFromCart(id, quantityToRemove);
     showToastifySuccess('Items removed')
   };
+  
+  const handleBuyAll = () => {
+    clearCart();
+    showToastifySuccess('All items bought successfully!');
+  };
+
+  const handleRemoveAll = () => {
+    clearCart();
+    showToastifySuccess('All items removed from the cart.');
+  };
+
+  if(!authContext?.user?.username) {
+    return <h2 className={styles.notLogedInInfo}>Log in to view your cart</h2>
+  }
 
   return (
     <div className={styles.cartContainer}>
@@ -34,6 +51,7 @@ const Cart: React.FC = () => {
           <table className={styles.cartTable}>
             <thead>
               <tr>
+                <th>Thumbnail</th>
                 <th>Product</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -44,7 +62,18 @@ const Cart: React.FC = () => {
             <tbody>
               {cartItems.map((item: CartItem) => (
                 <tr key={item.id}>
-                  <td>{item.title}</td>
+                  <td>
+                    <img
+                      src={item.thumbnail}
+                      alt={item.title}
+                      className={styles.thumbnail}
+                    />
+                  </td>
+                  <td>
+                    <Link to={`/product/${item.id}`} className={styles.cartLink}>
+                      {item.title}
+                    </Link>
+                  </td>
                   <td>${item.price.toFixed(2)}</td>
                   <td>{item.quantity}</td>
                   <td>${(item.price * item.quantity).toFixed(2)}</td>
@@ -75,6 +104,20 @@ const Cart: React.FC = () => {
           <div className={styles.cartSummary}>
             <h3>Total Price: ${cartTotals.totalPrice.toFixed(2)}</h3>
           </div>
+          <div className={styles.actionButtons}>
+            <button
+              className={`${styles.cartActionButton} ${styles.buyAllButton}`}
+              onClick={handleBuyAll}
+            >
+              Buy All
+            </button>
+            <button
+              className={`${styles.cartActionButton} ${styles.removeAllButton}`}
+              onClick={handleRemoveAll}
+            >
+              Remove All
+            </button>
+          </div>  
         </>
       )}
     </div>

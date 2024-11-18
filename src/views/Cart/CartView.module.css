@@ -1,5 +1,6 @@
 .cartContainer {
   padding: 2rem;
+  margin-top: 4rem;
 }
 
 .cartTable {
@@ -61,4 +62,45 @@
 
 .removeButton:hover {
   background-color: #c0392b;
+}
+
+.notLogedInInfo{
+  margin-top: 8rem;
+  display: flex;
+  justify-content: center;
+}
+
+.cartLink{
+  text-decoration: none;
+  color: rgb(54, 146, 217);
+}
+
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cartActionButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.buyAllButton {
+  background-color: #28a745;
+  color: white;
+}
+
+.removeAllButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cartActionButton:hover {
+  opacity: 0.9;
 }

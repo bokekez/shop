@@ -15,6 +15,7 @@ table {
   border-radius: 8px;
   overflow: hidden;
   margin: 1.5rem 0;
+  text-decoration: none;
 }
 
 thead {
@@ -40,6 +41,11 @@ td {
   vertical-align: middle;
 }
 
+.productLink {
+  text-decoration: none;
+  color: rgb(54, 146, 217);
+}
+
 img {
   border-radius: 5px;
   width: 50px;
@@ -54,7 +60,6 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* Responsive Table */
 @media (max-width: 768px) {
   thead {
     display: none;
