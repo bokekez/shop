@@ -17,8 +17,6 @@ const ProductTable: React.FC<ProductTableProps> = ({
   const authContext = useContext(AuthContext);
   const cartContext = useContext(CartContext);
 
-  console.log(cartContext)
-
   const handleAddToCart = (product: CartItem) => {
     const cartItem = {
         id: product.id,

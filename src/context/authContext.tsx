@@ -20,6 +20,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       if (token) {
         try {
           const userData = await checkUserToken(token); 
+          if(userData.message	=== "Invalid/Expired Token!" || userData.message	=== "Token Expired!") return
           setUser(userData); 
           showToastifySuccess(`Welcome back ${userData.firstName}`)
         } catch {

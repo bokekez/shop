@@ -1,0 +1,64 @@
+.cartContainer {
+  padding: 2rem;
+}
+
+.cartTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.cartTable th, .cartTable td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.cartTable th {
+  background-color: #f4f4f4;
+}
+
+.removeButton {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.removeButton:hover {
+  background-color: #c0392b;
+}
+
+.cartSummary {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.removeSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantityInput {
+  width: 3rem;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.3rem;
+}
+
+.removeButton {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.removeButton:hover {
+  background-color: #c0392b;
+}

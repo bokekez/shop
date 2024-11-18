@@ -13,8 +13,6 @@ const NavBar: React.FC = () => {
   const cartContext = useContext(CartContext);
   const authContext = useContext(AuthContext);
 
-  console.log('nav cart', cartContext)
-  
   // const logoutRef = useRef<HTMLDivElement | null>(null);
 
   // useEffect(() => {
@@ -73,9 +71,13 @@ const NavBar: React.FC = () => {
         <div className={styles.navActions}>
           { authContext?.user?.username ? (
             <div className={styles.loggedContainer}>
-            <button className={styles.cartButton}>
+            <Link to="/cart">
+            <button className={`${styles.cartButton} ${styles.cartContainer}`}>   
+              {/* <p>{cartContext?.cartTotals.totalItems}</p> */}
+              <p className={styles.total}>{cartContext?.cartTotals.totalPrice.toFixed(2)}$</p>
               <img src={cart}></img>
             </button>
+            </Link>
              <div className={styles.userDropdown} onClick={showLogout}>
              <span className={styles.username} >{authContext.user.username}</span>
              <img src={arrowDown} className={styles.downArrow}></img>
