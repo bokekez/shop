@@ -67,6 +67,12 @@
   color: #61dafb;
 }
 
+.cartContainer{
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
 .userSection {
   display: flex;
   align-items: center;
@@ -120,4 +126,8 @@
 .downArrow{
   width: 25px;
   height: 25px;
+}
+
+.total{
+  position: relative;
 }
