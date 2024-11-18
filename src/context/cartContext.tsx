@@ -1,22 +1,33 @@
 import { createContext, useState, ReactNode, FC } from 'react';
 import { CartItem, CartContextType } from '../types/CartInterfaces';
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+const defaultCartContext: CartContextType = {
+  cartItems: [],
+  addToCart: () => {},
+  removeFromCart: () => {},
+  clearCart: () => {},
+  cartTotals: {
+    totalItems: 0,
+    totalPrice: 0,
+  },
+};
+
+const CartContext = createContext<CartContextType | undefined>(defaultCartContext);
 
 export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item: CartItem, addingQuantity: number = 1) => {
     setCartItems((existingItems) => {
       const itemExists = existingItems.find((cartItem) => cartItem.id === item.id);
       if (itemExists) {
         return existingItems.map((cartItem) =>
           cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            ? { ...cartItem, quantity: cartItem.quantity + addingQuantity }
             : cartItem
         );
       } else {
-        return [...existingItems, { ...item, quantity: 1 }];
+        return [...existingItems, { ...item, quantity: addingQuantity }];
       }
     });
   };

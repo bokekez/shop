@@ -73,9 +73,9 @@ const NavBar: React.FC = () => {
             <div className={styles.loggedContainer}>
             <Link to="/cart">
             <button className={`${styles.cartButton} ${styles.cartContainer}`}>   
-              {/* <p>{cartContext?.cartTotals.totalItems}</p> */}
               <p className={styles.total}>{cartContext?.cartTotals.totalPrice.toFixed(2)}$</p>
               <img src={cart}></img>
+              <p>{cartContext?.cartTotals.totalItems}</p>
             </button>
             </Link>
              <div className={styles.userDropdown} onClick={showLogout}>

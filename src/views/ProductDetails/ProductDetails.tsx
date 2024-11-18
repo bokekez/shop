@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../../api/productApi';
 import { ProductDetailsInterface } from '../../types/ProductInterfaces';
 import styles from './ProductDetails.module.css';
-import { showToastifyError } from '../../config/toastifyConfig';
+import { showToastifyError, showToastifySuccess  } from '../../config/toastifyConfig';
+import { CartContext } from '../../context/cartContext';
+import { AuthContext } from '../../context/authContext';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<ProductDetailsInterface | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [addQuantity, setAddQuantity] = useState(1);
+  
+  const authContext = useContext(AuthContext);
+  const { cartItems, addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const loadProduct = async () => {
       setLoading(true);
       try {
         if (id) {
-          const fetchedProduct = await fetchProductById(parseInt(id, 10));
+          const fetchedProduct = await fetchProductById(parseInt(id));
           setProduct(fetchedProduct);
           setSelectedImage(fetchedProduct.images[0]);
         }
@@ -29,6 +35,24 @@ const ProductDetails: React.FC = () => {
 
     loadProduct();
   }, [id]);
+
+  const cartQuantityForProduct = cartItems.find(item => item.id === product?.id)?.quantity || 0;
+  const remainingStock = product?.stock - cartQuantityForProduct;
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    setAddQuantity(value > 0 && value <= product.stock ? value : 1);
+  };
+
+  const handleAddToCart = () => {
+    if(remainingStock <= 0) return showToastifyError('Out of stock', 'outOfStock');
+    if (addQuantity > remainingStock) {
+      showToastifyError('Cannot add more than available stock.', 'moreThenStock');
+      return;
+    }
+    addToCart(product, addQuantity);
+    showToastifySuccess(`${addQuantity} item(s) added to the cart!`);
+  };
 
   if (loading) {
     return <p>Loading product details...</p>;
@@ -81,8 +105,22 @@ const ProductDetails: React.FC = () => {
           <strong>Rating:</strong> {product.rating}
         </p>
         <p>
-          <strong>Stock:</strong> {product.stock}
+          <strong>Stock:</strong> {remainingStock}
         </p>
+        {authContext?.user?.username && <div className={styles.cartSection}>
+          <input
+            type="number"
+            min="1"
+            max={product.stock}
+            value={addQuantity}
+            onChange={handleQuantityChange}
+            className={styles.quantityInput}
+          />
+          <button onClick={handleAddToCart} className={styles.addToCartButton}>
+            Add to Cart
+          </button>
+          </div>
+        }
       </div>
     </div>
   );

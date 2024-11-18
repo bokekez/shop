@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ProductTable from '../../components/Products/ProductTable';
 import Filter from '../../components/Filter/Filter';
 import styles from './Products.module.css';
@@ -14,6 +14,8 @@ import {
 } from '../../api/productApi';
 import { Product } from '../../types/ProductInterfaces';
 import { Filters } from '../../types/FilterInterfaces';
+import { CartItem } from '../../types/CartInterfaces';
+import { CartContext } from '../../context/cartContext';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -38,6 +40,8 @@ const Products: React.FC = () => {
     'description',
     'thumbnail',
   ].join();
+
+  const { cartItems } = useContext(CartContext);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -133,6 +137,14 @@ const Products: React.FC = () => {
     setSearchQuery(query);
     setCurrentPage(1);
   };
+ 
+  const productsWithStock = products.map((product) => {
+    const cartQuantity = cartItems.find((item: CartItem) => item.id === product.id)?.quantity || 0;
+    return {
+      ...product,
+      stock: product.stock - cartQuantity,
+    };
+  });
 
   return (
     <div className={styles.productsContainer}>
@@ -140,7 +152,7 @@ const Products: React.FC = () => {
       <div className={styles.tableContainer}>
         <Filter onApplyFilters={handleApplyFilters} />
         <ProductTable
-          products={products}
+          products={productsWithStock}
           loading={loading}
           currentPage={currentPage}
           lastPage={lastPage}

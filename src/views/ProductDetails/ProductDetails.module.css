@@ -78,3 +78,31 @@ p {
 strong {
   color: #333;
 }
+
+.cartSection {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantityInput {
+  width: 3rem;
+  padding: 0.3rem;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.addToCartButton {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addToCartButton:hover {
+  background-color: #2980b9;
+}
