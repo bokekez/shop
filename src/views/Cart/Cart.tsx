@@ -70,7 +70,7 @@ const Cart: React.FC = () => {
                     />
                   </td>
                   <td>
-                    <Link to={`shop/product/${item.id}`} className={styles.cartLink}>
+                    <Link to={`/shop/product/${item.id}`} className={styles.cartLink}>
                       {item.title}
                     </Link>
                   </td>
