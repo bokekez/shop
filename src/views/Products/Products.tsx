@@ -3,10 +3,7 @@ import ProductTable from '../../components/Products/ProductTable';
 import Filter from '../../components/Filter/Filter';
 import styles from './Products.module.css';
 import Search from '../../components/Search/Search';
-import {
-  showToastifyError,
-  showToastifyWarning,
-} from '../../config/toastifyConfig';
+import { showToastifyError } from '../../config/toastifyConfig';
 import {
   fetchProducts,
   fetchProductsByCategoy,
@@ -19,10 +16,10 @@ import { CartContext } from '../../context/cartContext';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [filterChange, setFilterChange] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalProducts, setTotalProducts] = useState<number>(0);
+  const [filterChange, setFilterChange] = useState<boolean>(false);
   const [filters, setFilters] = useState<Filters>({
     category: null,
     minPrice: undefined,
@@ -126,8 +123,6 @@ const Products: React.FC = () => {
     maxPrice?: number | undefined,
     sortBy?: string | undefined
   ) => {
-    if (!category && (minPrice || maxPrice))
-      showToastifyWarning('Categoy must be selected to apply min or max price');
     setFilters({ category, minPrice, maxPrice, sortBy });
     setFilterChange(filterChange ? false : true);
     setCurrentPage(1);

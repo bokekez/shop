@@ -11,7 +11,7 @@ import { CartItem } from '../../types/CartInterfaces';
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<ProductDetailsInterface | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [addQuantity, setAddQuantity] = useState(1);
   

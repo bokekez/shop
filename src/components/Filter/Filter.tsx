@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Filter.module.css';
 import { fetchCategories } from '../../api/categoriesApi';
 import { Categories, FilterProps } from '../../types/FilterInterfaces';
-import { showToastifyError } from '../../config/toastifyConfig';
+import { showToastifyError, showToastifyWarning } from '../../config/toastifyConfig';
 
 const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   const [categories, setCategories] = useState<Categories[]>([]);
@@ -32,10 +32,12 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   };
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(Number(event.target.value) === 0) return setMinPrice(undefined)
     setMinPrice(Number(event.target.value));
   };
 
   const handleMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(Number(event.target.value) === 0) return setMaxPrice(undefined)
     setMaxPrice(Number(event.target.value));
   };
 
@@ -44,6 +46,13 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   };
 
   const handleSubmit = () => {
+    console.log(minPrice, isNaN(minPrice))
+    if ((minPrice && isNaN(minPrice)) || (maxPrice && isNaN(maxPrice))) {
+      return showToastifyWarning('Min and max price must be numbers', 'number');
+    }
+    if (!selectedCategory && (minPrice || maxPrice)) {
+      return showToastifyWarning('Categoy must be selected to apply min or max price', 'selectCategory');
+    }
     onApplyFilters(selectedCategory, minPrice, maxPrice, sortBy);
   };
 
