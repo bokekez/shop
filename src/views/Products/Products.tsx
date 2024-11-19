@@ -41,7 +41,7 @@ const Products: React.FC = () => {
     'thumbnail',
   ].join();
 
-  const { cartItems } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext)!;
 
   useEffect(() => {
     const loadProducts = async () => {

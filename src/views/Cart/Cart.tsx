@@ -7,15 +7,15 @@ import { AuthContext } from '../../context/authContext';
 import { Link } from 'react-router-dom';
 
 const Cart: React.FC = () => {
-  const { cartItems, removeFromCart, cartTotals, clearCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, cartTotals, clearCart } = useContext(CartContext)!;
   const authContext = useContext(AuthContext);
-  const [removeQuantities, setRemoveQuantities] = useState(
-    cartItems.reduce((acc: CartItem, item: CartItem) => ({ ...acc, [item.id]: item.quantity }), {})
+  const [removeQuantities, setRemoveQuantities] = useState<{ [key: number]: number }>(
+    cartItems.reduce((acc, item) => ({ ...acc, [item.id]: item.quantity }), {})
   );
 
   const handleInputChange = (id: number, value: string) => {
     const parsedValue = parseInt(value, 10);
-    setRemoveQuantities((prev: CartItem) => ({
+    setRemoveQuantities((prev) => ({
       ...prev,
       [id]: parsedValue > 0 ? parsedValue : 1, 
     }));

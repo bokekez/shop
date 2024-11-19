@@ -44,7 +44,7 @@ export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
           }
           return item;
         })
-        .filter(Boolean); 
+        .filter((item): item is CartItem => item !== null); 
     });
   };
 

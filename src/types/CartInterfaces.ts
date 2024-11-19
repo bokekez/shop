@@ -3,7 +3,8 @@ export interface CartItem {
   title: string;
   price: number;
   quantity: number;
-  thumbnail: string;
+  thumbnail?: string;
+  stock?: number;
 }
 
 export interface CartTotals {
@@ -13,8 +14,8 @@ export interface CartTotals {
 
 export interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
+  addToCart: (item: CartItem, addQuantity: number) => void;
+  removeFromCart: (id: number, quantityToRemove: number) => void;
   clearCart: () => void;
   cartTotals: CartTotals;
 }

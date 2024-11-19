@@ -6,6 +6,7 @@ import styles from './ProductDetails.module.css';
 import { showToastifyError, showToastifySuccess  } from '../../config/toastifyConfig';
 import { CartContext } from '../../context/cartContext';
 import { AuthContext } from '../../context/authContext';
+import { CartItem } from '../../types/CartInterfaces';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,7 +16,7 @@ const ProductDetails: React.FC = () => {
   const [addQuantity, setAddQuantity] = useState(1);
   
   const authContext = useContext(AuthContext);
-  const { cartItems, addToCart } = useContext(CartContext);
+  const { cartItems, addToCart } = useContext(CartContext)!;
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -36,12 +37,12 @@ const ProductDetails: React.FC = () => {
     loadProduct();
   }, [id]);
 
-  const cartQuantityForProduct = cartItems.find(item => item.id === product?.id)?.quantity || 0;
-  const remainingStock = product?.stock - cartQuantityForProduct;
+  const cartQuantityForProduct = cartItems.find((item: CartItem) => item.id === product?.id)?.quantity || 0;
+  const remainingStock = (product?.stock ?? 0) - cartQuantityForProduct;
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
-    setAddQuantity(value > 0 && value <= product.stock ? value : 1);
+    setAddQuantity(value > 0 && value <= (product?.stock ?? 0) ? value : 1);
   };
 
   const handleAddToCart = () => {
@@ -50,7 +51,15 @@ const ProductDetails: React.FC = () => {
       showToastifyError('Cannot add more than available stock.', 'moreThenStock');
       return;
     }
-    addToCart(product, addQuantity);
+    if(!product) return
+    const cartItem: CartItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      quantity: 0, 
+      thumbnail: product.thumbnail, 
+    };
+    addToCart(cartItem, addQuantity);
     showToastifySuccess(`${addQuantity} item(s) added to the cart!`);
   };
 
