@@ -13,6 +13,7 @@ import { Product } from '../../types/ProductInterfaces';
 import { Filters } from '../../types/FilterInterfaces';
 import { CartItem } from '../../types/CartInterfaces';
 import { CartContext } from '../../context/cartContext';
+import { PRODUCTS_PER_PAGE, PRODUCTS_SELECT } from '../../constants/productConsts';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,16 +28,6 @@ const Products: React.FC = () => {
     sortBy: undefined,
   });
   const [searchQuery, setSearchQuery] = useState('');
-  const PRODUCTS_PER_PAGE = 20;
-  const PRODUCTS_SELECT = [
-    'title',
-    'price',
-    'category',
-    'rating',
-    'stock',
-    'description',
-    'thumbnail',
-  ].join();
 
   const { cartItems } = useContext(CartContext)!;
 
