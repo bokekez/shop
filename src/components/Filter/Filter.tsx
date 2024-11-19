@@ -46,9 +46,9 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   };
 
   const handleSubmit = () => {
-    // if ((minPrice && isNaN(minPrice)) || (maxPrice && isNaN(maxPrice))) {
-    //   return showToastifyWarning('Min and max price must be numbers', 'number');
-    // }
+    if ((minPrice && isNaN(minPrice)) || (maxPrice && isNaN(maxPrice))) {
+      return showToastifyWarning('Min and max price must be numbers', 'number');
+    }
     if (!selectedCategory && (minPrice || maxPrice)) {
       return showToastifyWarning('Categoy must be selected to apply min or max price', 'selectCategory');
     }
