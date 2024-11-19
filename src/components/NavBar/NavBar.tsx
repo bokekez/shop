@@ -59,19 +59,19 @@ const NavBar: React.FC = () => {
     <nav className={styles.navbar}>
       <div className={styles.navContainer}>
         <h1 className={styles.logo}>
-          <Link to="/">Kings Shop</Link>
+          <Link to="shop/">Kings Shop</Link>
         </h1>
 
         <ul className={styles.navLinks}>
           <li>
-            <Link to="/products">Products</Link>
+            <Link to="shop/products">Products</Link>
           </li>
         </ul>
 
         <div className={styles.navActions}>
           { authContext?.user?.username ? (
             <div className={styles.loggedContainer}>
-            <Link to="/cart">
+            <Link to="shop/cart">
             <button className={`${styles.cartButton} ${styles.cartContainer}`}>   
               <p className={styles.total}>{cartContext?.cartTotals.totalPrice.toFixed(2)}$</p>
               <img src={cart}></img>
