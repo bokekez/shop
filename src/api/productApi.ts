@@ -1,15 +1,7 @@
 import { ProductResponse, Product } from '../types/ProductInterfaces';
-import { sortQueryInterface } from '../types/FilterInterfaces';
+import { sortQueryMap } from '../types/FilterInterfaces';
 
 const BASE_URL='https://dummyjson.com/products'
-
-const sortQueryMap: sortQueryInterface = {
-  none: '',
-  priceAsc: '&sortBy=price&order=asc',
-  priceDesc: '&sortBy=price&order=desc',
-  nameAsc: '&sortBy=title&order=asc',
-  nameDesc: '&sortBy=title&order=desc',
-}
 
 export const fetchProducts = async  (
   select: string,

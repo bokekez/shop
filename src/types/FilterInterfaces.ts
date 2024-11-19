@@ -28,7 +28,7 @@ export interface sortQueryInterface {
   nameDesc: string;
 }
 
-export const sortQueryMap = {
+export const sortQueryMap: sortQueryInterface = {
   none: '',
   priceAsc: '&sortBy=price&order=asc',
   priceDesc: '&sortBy=price&order=desc',
