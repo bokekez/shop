@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://bokekez.github.io/shop/",
+  "homepage": "https://bokekez.github.io/shop",
   "build": "react-scripts build",
   "scripts": {
     "dev": "vite",
