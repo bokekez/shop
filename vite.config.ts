@@ -12,7 +12,14 @@ export default defineConfig({
       },
     },
   },
-  // server: {
-  //   historyApiFallback: true,
-  // },
+  server: {
+    fs: {
+      allow: ['.'],
+    },
+  },
+  resolve: {
+    alias: {
+      '@': '/src', 
+    },
+  },
 });
