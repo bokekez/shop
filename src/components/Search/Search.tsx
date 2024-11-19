@@ -3,7 +3,7 @@ import styles from './Search.module.css';
 import { SearchProps } from '../../types/ProductInterfaces';
 
 const Search: React.FC<SearchProps> = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);

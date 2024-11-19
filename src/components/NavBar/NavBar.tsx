@@ -13,24 +13,6 @@ const NavBar: React.FC = () => {
   const cartContext = useContext(CartContext);
   const authContext = useContext(AuthContext);
 
-  // const logoutRef = useRef<HTMLDivElement | null>(null);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     console.log('Clicked target:', event.target, logoutRef);
-  //     if (logoutRef.current && !logoutRef.current.contains(event.target as Node)) {
-  //       console.log('Click outside detected');
-  //       setLogoutDialog(false); 
-  //     }
-  //   };
-
-  //   document.addEventListener('click', handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside);
-  //   };
-  // }, []);
-
   const handleLoginClick = () => {
     setIsLoginOpen(true);
   };
@@ -47,6 +29,7 @@ const NavBar: React.FC = () => {
         firstName: null,
         lastName: null,
       }); 
+      cartContext?.setCartItems([]);
       localStorage.removeItem('authToken'); 
     }
   };

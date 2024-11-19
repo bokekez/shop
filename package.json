@@ -7,7 +7,7 @@
   "build": "react-scripts build",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build --base=/",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",

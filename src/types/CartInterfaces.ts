@@ -14,6 +14,7 @@ export interface CartTotals {
 
 export interface CartContextType {
   cartItems: CartItem[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   addToCart: (item: CartItem, addQuantity: number) => void;
   removeFromCart: (id: number, quantityToRemove: number) => void;
   clearCart: () => void;
