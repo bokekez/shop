@@ -27,3 +27,11 @@ export interface sortQueryInterface {
   nameAsc: string;
   nameDesc: string;
 }
+
+export const sortQueryMap = {
+  none: '',
+  priceAsc: '&sortBy=price&order=asc',
+  priceDesc: '&sortBy=price&order=desc',
+  nameAsc: '&sortBy=title&order=asc',
+  nameDesc: '&sortBy=title&order=desc',
+};
