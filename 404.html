@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
     <script>
-      const redirectUrl = encodeURIComponent(window.location.pathname);
+      const redirectUrl = '/shop/index.html?redirect=' + encodeURIComponent(location.pathname + location.search);
       window.location.replace(redirectUrl);
     </script>
   </head>
