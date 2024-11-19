@@ -51,7 +51,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 <tr key={product.id}>
                   <td data-label="Thumbnail">
                     <Link
-                      to={`shop/product/${product.id}`}
+                      to={`/shop/product/${product.id}`}
                       className={styles.productLink}
                     >
                       <img
@@ -63,7 +63,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   </td>
                   <td data-label="Title">
                     <Link
-                      to={`shop/product/${product.id}`}
+                      to={`/shop/product/${product.id}`}
                       className={styles.productLink}
                     >
                       {product.title}
