@@ -40,4 +40,5 @@ export interface ProductDetailsInterface {
   images: string[];
   brand?: string;
   discountPercentage?: number;
+  thumbnail?: string;
 }

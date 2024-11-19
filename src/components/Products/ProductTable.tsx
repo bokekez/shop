@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
 import { CartContext } from '../../context/cartContext';
 import { CartItem } from '../../types/CartInterfaces';
+import { Product } from '../../types/ProductInterfaces';
 import { showToastifyWarning } from '../../config/toastifyConfig';
 
 const ProductTable: React.FC<ProductTableProps> = ({
@@ -18,16 +19,13 @@ const ProductTable: React.FC<ProductTableProps> = ({
   const authContext = useContext(AuthContext);
   const cartContext = useContext(CartContext);
 
-  const handleAddToCart = (product: CartItem) => {
+  const handleAddToCart = (product: Product) => {
     if(product.stock <= 0) return showToastifyWarning('Not enough stock', 'noStock')
-    const cartItem = {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        thumbnail: product.thumbnail,
-        quantity: 1,
-      };
-    cartContext?.addToCart(cartItem);
+    const cartItem: CartItem = {
+      ...product, 
+      quantity: 1, 
+    };
+    cartContext?.addToCart(cartItem, 1);
   };
 
   return (
