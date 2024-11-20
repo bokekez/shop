@@ -63,22 +63,22 @@ const Cart: React.FC = () => {
             <tbody>
               {cartItems.map((item: CartItem) => (
                 <tr key={item.id}>
-                  <td>
+                  <td data-label="Thumbnail">
                     <img
                       src={item.thumbnail}
                       alt={item.title}
                       className={styles.thumbnail}
                     />
                   </td>
-                  <td>
+                  <td data-label="Product">
                     <Link to={`/shop/product/${item.id}`} className={styles.cartLink}>
                       {item.title}
                     </Link>
                   </td>
-                  <td>${item.price.toFixed(2)}</td>
+                  <td data-label="Price">${item.price.toFixed(2)}</td>
                   <td>{item.quantity}</td>
-                  <td>${(item.price * item.quantity).toFixed(2)}</td>
-                  <td>
+                  <td data-label="Quantity">${(item.price * item.quantity).toFixed(2)}</td>
+                  <td data-label="Actions">
                   <div className={styles.removeSection}>
                       <input
                         type="number"
