@@ -14,6 +14,7 @@ const Cart: React.FC = () => {
   );
 
   const handleInputChange = (id: number, value: string) => {
+
     const parsedValue = parseInt(value, 10);
     setRemoveQuantities((prev) => ({
       ...prev,
@@ -22,7 +23,7 @@ const Cart: React.FC = () => {
   };
 
   const handleRemove = (id: number) => {
-    const quantityToRemove = removeQuantities[id] || 1;
+    const quantityToRemove = removeQuantities[id];
     removeFromCart(id, quantityToRemove);
     showToastifySuccess('Items removed')
   };
@@ -81,7 +82,7 @@ const Cart: React.FC = () => {
                   <div className={styles.removeSection}>
                       <input
                         type="number"
-                        min="1"
+                        
                         max={item.quantity}
                         value={removeQuantities[item.id] || item.quantity}
                         onChange={(e) =>
