@@ -7,6 +7,7 @@ import { CartContext } from '../../context/cartContext';
 import { CartItem } from '../../types/CartInterfaces';
 import { Product } from '../../types/ProductInterfaces';
 import { showToastifyWarning } from '../../config/toastifyConfig';
+import Spinner from '../Spinner/Spinner';
 
 const ProductTable: React.FC<ProductTableProps> = ({
   products,
@@ -30,8 +31,6 @@ const ProductTable: React.FC<ProductTableProps> = ({
 
   return (
     <div>
-      {loading && <p>Loading products...</p>}
-      {!loading && (
         <>
           <table className={styles.table}>
             <thead>
@@ -46,7 +45,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 {authContext?.user?.username && <th>Add to Cart</th>}
               </tr>
             </thead>
-            <tbody>
+            {!loading && ( <tbody>
               {products.map((product) => (
                 <tr key={product.id}>
                   <td data-label="Thumbnail">
@@ -89,8 +88,9 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 </tr>
               ))}
             </tbody>
+            )}
           </table>
-
+          {loading && <div className={styles.tableSpinner}><Spinner /></div>}  
           <div className={styles.pagination}>
             <button
               onClick={onPreviousPage}
@@ -111,7 +111,6 @@ const ProductTable: React.FC<ProductTableProps> = ({
             </button>
           </div>
         </>
-      )}
     </div>
   );
 };

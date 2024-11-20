@@ -142,3 +142,8 @@ tbody tr:last-child td {
   background-color: var(--primary-color);
   color: var(--secondary-color);
 }
+
+.tableSpinner{
+  text-align: center; 
+    vertical-align: middle;
+}
