@@ -71,7 +71,7 @@ const Cart: React.FC = () => {
                     />
                   </td>
                   <td data-label="Product">
-                    <Link to={`/shop/product/${item.id}`} className={styles.cartLink}>
+                    <Link to={`/product/${item.id}`} className={styles.cartLink}>
                       {item.title}
                     </Link>
                   </td>
