@@ -4,14 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "build": "react-scripts build",
-  "homepage": "/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format": "prettier --write .",
-    "deploy": "npm run build && gh-pages -d dist"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "prettier": "^3.3.3",
