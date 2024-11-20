@@ -27,7 +27,7 @@
   font-weight: bold;
   color: white;
   text-decoration: none;
-  margin-left: 2rem;
+  flex: 1;
 }
 
 .logo a {
@@ -38,8 +38,10 @@
 .navLinks {
   list-style: none;
   text-decoration: none;
-  display: flex;
   gap: 15px;
+  display: flex;
+  justify-content: center;
+  flex: 1;
 }
 
 .navLinks a {
@@ -51,6 +53,8 @@
 .navActions {
   margin-right: 2rem;
   display: flex;
+  justify-content: end;
+  flex: 1;
   gap: 15px;
   align-items: center;
 }
