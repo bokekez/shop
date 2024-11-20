@@ -32,9 +32,12 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
   }, []);
 
   const handleCategoryChange = ( event: React.ChangeEvent<HTMLSelectElement> ) => {
-    console.log(searchQuery)
     if(searchQuery) return showToastifyWarning('Can not filter by categories while searching', 'categoryFilter')
     const category = event.target.value || null;
+    if(!category) {
+      setMaxPrice(undefined)
+      setMinPrice(undefined)
+    }
     setSelectedCategory(category);
   };
 

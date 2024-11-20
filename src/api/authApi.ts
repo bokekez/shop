@@ -2,7 +2,6 @@ const BASE_URL = 'https://dummyjson.com/auth';
 import { UserResponse } from "../types/UserInterfaces";
 
 export const loginUser = async (username: string, password: string): Promise<UserResponse> => {
-  console.log('login', username, password)
   try {
     const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',

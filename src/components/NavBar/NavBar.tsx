@@ -50,20 +50,20 @@ const NavBar: React.FC = () => {
     <nav className={styles.navbar}>
       <div className={styles.navContainer}>
         <div className={styles.logo}>
-          <Link to="shop/" className={styles.homeLink}>
+          <Link to="/" className={styles.homeLink}>
             <img src={homeIcon} className={styles.homeIcon}></img>
             {!smallScreen && 'Kings Shop'}
           </Link>
         </div>
 
         <div className={styles.navLinks}>
-            <Link to="shop/products">Products</Link>
+            <Link to="/products">Products</Link>
         </div>
 
         <div className={styles.navActions}>
           { authContext?.user?.username ? (
             <div className={styles.loggedContainer}>
-            <Link to="shop/cart">
+            <Link to="/cart">
             <button className={`${styles.cartButton} ${styles.cartContainer}`}>   
               {!smallScreen &&<p className={styles.total}>{cartContext?.cartTotals.totalPrice.toFixed(2)}$</p>}
               <img src={cart} className={styles.homeIcon}></img>

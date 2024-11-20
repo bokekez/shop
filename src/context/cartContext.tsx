@@ -24,7 +24,6 @@ export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const storedCartData = localStorage.getItem('cartData');
       if (storedCartData) {
         const { cartItems: storedCartItems, userId } = JSON.parse(storedCartData);
-        console.log('stored', storedCartItems, authContext.user?.id, userId)
         if (authContext.user.id === Number(userId)) {
           setCartItems([...storedCartItems]);
         } 
