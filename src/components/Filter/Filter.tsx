@@ -10,6 +10,8 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   const [minPrice, setMinPrice] = useState<number | undefined>();
   const [maxPrice, setMaxPrice] = useState<number | undefined>();
   const [sortBy, setSortBy] = useState<string>();
+  const [smallScreen, setSmallScreen] = useState<boolean>(false);
+  const [openFilter, setOpenFilter] = useState<boolean>(false);
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -22,6 +24,11 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
     };
 
     loadCategories();
+  }, []);
+
+  useEffect(() => {
+    if(window.innerWidth <= 500 && window.innerHeight <= 900)
+      setSmallScreen(true)
   }, []);
 
   const handleCategoryChange = (
@@ -52,11 +59,23 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
     if (!selectedCategory && (minPrice || maxPrice)) {
       return showToastifyWarning('Categoy must be selected to apply min or max price', 'selectCategory');
     }
+    if ((minPrice && maxPrice) && minPrice > maxPrice) {
+      return showToastifyWarning('Max price must be greater then min price', 'selectCategory');
+    }
     onApplyFilters(selectedCategory, minPrice, maxPrice, sortBy);
+    setOpenFilter(false)
   };
 
+  const handleOpenFilter = () => {
+    setOpenFilter(openFilter ? false : true)
+  }
+
+  console.log('scr', smallScreen, smallScreen && openFilter)
+
   return (
-    <div className={styles.filterContainer}>
+    <div>
+    {smallScreen && <button onClick={handleOpenFilter} className={styles.openButton}>Open filter</button>}
+    {(!smallScreen || (smallScreen && openFilter)) && <div className={`${styles.filterContainer} ${smallScreen ? styles.filterContainerSmall : ''}`}>
       <h3 className={styles.filterTitle}>Filters</h3>
       <div className={styles.filterGroup}>
         <label>Category</label>
@@ -74,8 +93,8 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
         </select>
       </div>
 
-      <div className={styles.filterGroup}>
-        <label>Price Range</label>
+      {selectedCategory ? <div className={styles.filterGroup}>
+        <label>Price Range For Categories:</label>
         <div className={styles.priceInputs}>
           <input
             type="number"
@@ -84,6 +103,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
             placeholder="Min"
             min={0}
             className={styles.priceInput}
+            disabled={!selectedCategory}
           />
           <input
             type="number"
@@ -92,9 +112,12 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
             placeholder="Max"
             min={0}
             className={styles.priceInput}
+            disabled={!selectedCategory}
           />
         </div>
-      </div>
+        </div> :
+        <label className={styles.filterInfo}>Select category to enable price filters</label>
+      }
 
       <div className={styles.filterGroup}>
         <label>Sort By</label>
@@ -114,6 +137,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
       <button className={styles.applyButton} onClick={handleSubmit}>
         Apply Filters
       </button>
+    </div> }
     </div>
   );
 };
