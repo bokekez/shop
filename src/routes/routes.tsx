@@ -7,10 +7,10 @@ import Cart from '../views/Cart/Cart';
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="shop/" element={<Home />} />
-      <Route path="shop/products" element={<Products />} />
-      <Route path="shop/product/:id" element={<ProductDetails />} />
-      <Route path="shop/cart" element={<Cart />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<Products />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/cart" element={<Cart />} />
     </Routes>
   );
 };
