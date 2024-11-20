@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "build": "react-scripts build",
+  "homepage": "/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
