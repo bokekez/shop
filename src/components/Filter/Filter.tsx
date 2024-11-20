@@ -74,7 +74,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
 
   return (
     <div>
-    {smallScreen && <button onClick={handleOpenFilter} className={styles.openButton}>Open filter</button>}
+    {smallScreen && <button onClick={handleOpenFilter} className={styles.openButton}>{openFilter ? 'Close filter' : 'Open filter'}</button>}
     {(!smallScreen || (smallScreen && openFilter)) && <div className={`${styles.filterContainer} ${smallScreen ? styles.filterContainerSmall : ''}`}>
       <h3 className={styles.filterTitle}>Filters</h3>
       <div className={styles.filterGroup}>

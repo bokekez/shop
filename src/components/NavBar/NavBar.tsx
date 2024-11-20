@@ -1,17 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
 import cart from '../../resources/cart.png'
 import Login from '../Login/Login';
 import { AuthContext } from '../../context/authContext';
-import arrowDown from '../../resources/down-arrow.png'
+import arrowDown from '../../resources/down-arrow.png';
+import homeIcon from '../../resources/home.png'
 import { CartContext } from '../../context/cartContext';
 
 const NavBar: React.FC = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [logoutDialog, setLogoutDialog] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+  const [logoutDialog, setLogoutDialog] = useState<boolean>(false);
+  const [smallScreen, setSmallScreen] = useState<boolean>(false);
   const cartContext = useContext(CartContext);
   const authContext = useContext(AuthContext);
+  
+
+  useEffect(() => {
+    if(window.innerWidth <= 500 && window.innerHeight <= 900)
+      setSmallScreen(true)
+  }, []);
 
   const handleLoginClick = () => {
     setIsLoginOpen(true);
@@ -41,23 +49,24 @@ const NavBar: React.FC = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navContainer}>
-        <h1 className={styles.logo}>
-          <Link to="shop/">Kings Shop</Link>
-        </h1>
+        <div className={styles.logo}>
+          <Link to="shop/" className={styles.homeLink}>
+            <img src={homeIcon} className={styles.homeIcon}></img>
+            {!smallScreen && 'Kings Shop'}
+          </Link>
+        </div>
 
-        <ul className={styles.navLinks}>
-          <li>
+        <div className={styles.navLinks}>
             <Link to="shop/products">Products</Link>
-          </li>
-        </ul>
+        </div>
 
         <div className={styles.navActions}>
           { authContext?.user?.username ? (
             <div className={styles.loggedContainer}>
             <Link to="shop/cart">
             <button className={`${styles.cartButton} ${styles.cartContainer}`}>   
-              <p className={styles.total}>{cartContext?.cartTotals.totalPrice.toFixed(2)}$</p>
-              <img src={cart}></img>
+              {!smallScreen &&<p className={styles.total}>{cartContext?.cartTotals.totalPrice.toFixed(2)}$</p>}
+              <img src={cart} className={styles.homeIcon}></img>
               <p>{cartContext?.cartTotals.totalItems}</p>
             </button>
             </Link>
