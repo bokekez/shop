@@ -22,17 +22,17 @@ export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const storedCartData = localStorage.getItem('cartData');
-      if (storedCartData) {
-        const { cartItems: storedCartItems, userId } = JSON.parse(storedCartData);
-        if (authContext.user.id === Number(userId)) {
-          setCartItems([...storedCartItems]);
-        } 
-        if(!authContext.user.id) {
-          setCartItems([]);
-        }
+    if (storedCartData) {
+      const { cartItems: storedCartItems, userId } = JSON.parse(storedCartData);
+      if (authContext.user.id === Number(userId)) {
+        setCartItems([...storedCartItems]);
       }
-  }, [authContext.user.id])
-  
+      if (!authContext.user.id) {
+        setCartItems([]);
+      }
+    }
+  }, [authContext.user.id]);
+
   const saveCartToLocalStorage = (cartItems: CartItem[], userId: number | null) => {
     const cartData = { cartItems, userId };
     localStorage.setItem('cartData', JSON.stringify(cartData));
@@ -65,13 +65,11 @@ export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
         .map((item) => {
           if (item.id === id) {
             const remainingQuantity = item.quantity - quantityToRemove;
-            return remainingQuantity > 0
-              ? { ...item, quantity: remainingQuantity }
-              : null; 
+            return remainingQuantity > 0 ? { ...item, quantity: remainingQuantity } : null;
           }
           return item;
         })
-        .filter((item): item is CartItem => item !== null); 
+        .filter((item): item is CartItem => item !== null);
     });
   };
 
@@ -86,14 +84,16 @@ export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
         acc.totalPrice += item.price * item.quantity;
         return acc;
       },
-      { totalItems: 0, totalPrice: 0 } 
+      { totalItems: 0, totalPrice: 0 }
     );
   };
 
   const cartTotals = calculateCartSummary(cartItems);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, cartTotals, setCartItems}}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, clearCart, cartTotals, setCartItems }}
+    >
       {children}
     </CartContext.Provider>
   );

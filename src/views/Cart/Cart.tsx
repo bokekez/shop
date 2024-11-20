@@ -15,19 +15,19 @@ const Cart: React.FC = () => {
 
   const handleInputChange = (id: number, value: string) => {
     const parsedValue = parseInt(value, 10);
-    if(parsedValue < 1) return showToastifyWarning('Must remove at least one item', 'removeMin')
+    if (parsedValue < 1) return showToastifyWarning('Must remove at least one item', 'removeMin');
     setRemoveQuantities((prev) => ({
       ...prev,
-      [id]: parsedValue > 0 ? parsedValue : 1, 
+      [id]: parsedValue > 0 ? parsedValue : 1,
     }));
   };
 
   const handleRemove = (id: number) => {
     const quantityToRemove = removeQuantities[id];
     removeFromCart(id, quantityToRemove);
-    showToastifySuccess('Items removed')
+    showToastifySuccess('Items removed');
   };
-  
+
   const handleBuyAll = () => {
     clearCart();
     showToastifySuccess('All items bought successfully!');
@@ -38,8 +38,8 @@ const Cart: React.FC = () => {
     showToastifySuccess('All items removed from the cart.');
   };
 
-  if(!authContext?.user?.username) {
-    return <h2 className={styles.notLogedInInfo}>Log in to view your cart</h2>
+  if (!authContext?.user?.username) {
+    return <h2 className={styles.notLogedInInfo}>Log in to view your cart</h2>;
   }
 
   return (
@@ -64,11 +64,7 @@ const Cart: React.FC = () => {
               {cartItems.map((item: CartItem) => (
                 <tr key={item.id}>
                   <td data-label="Thumbnail">
-                    <img
-                      src={item.thumbnail}
-                      alt={item.title}
-                      className={styles.thumbnail}
-                    />
+                    <img src={item.thumbnail} alt={item.title} className={styles.thumbnail} />
                   </td>
                   <td data-label="Product">
                     <Link to={`/product/${item.id}`} className={styles.cartLink}>
@@ -79,21 +75,15 @@ const Cart: React.FC = () => {
                   <td>{item.quantity}</td>
                   <td data-label="Quantity">${(item.price * item.quantity).toFixed(2)}</td>
                   <td data-label="Actions">
-                  <div className={styles.removeSection}>
+                    <div className={styles.removeSection}>
                       <input
                         type="number"
-                        
                         max={item.quantity}
                         value={removeQuantities[item.id] || item.quantity}
-                        onChange={(e) =>
-                          handleInputChange(item.id, e.target.value)
-                        }
+                        onChange={(e) => handleInputChange(item.id, e.target.value)}
                         className={styles.quantityInput}
                       />
-                      <button
-                        className={styles.removeButton}
-                        onClick={() => handleRemove(item.id)}
-                      >
+                      <button className={styles.removeButton} onClick={() => handleRemove(item.id)}>
                         Remove
                       </button>
                     </div>
@@ -118,7 +108,7 @@ const Cart: React.FC = () => {
             >
               Remove All
             </button>
-          </div>  
+          </div>
         </>
       )}
     </div>

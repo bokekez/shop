@@ -16,13 +16,17 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      const token = localStorage.getItem('authToken'); 
+      const token = localStorage.getItem('authToken');
       if (token) {
         try {
-          const userData = await checkUserToken(token); 
-          if(userData.message	=== "Invalid/Expired Token!" || userData.message	=== "Token Expired!") return
-          setUser(userData); 
-          showToastifySuccess(`Welcome back ${userData.firstName}`)
+          const userData = await checkUserToken(token);
+          if (
+            userData.message === 'Invalid/Expired Token!' ||
+            userData.message === 'Token Expired!'
+          )
+            return;
+          setUser(userData);
+          showToastifySuccess(`Welcome back ${userData.firstName}`);
         } catch {
           setUser({
             id: null,
@@ -30,19 +34,17 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
             firstName: null,
             lastName: null,
           });
-          localStorage.removeItem('authToken'); 
+          localStorage.removeItem('authToken');
         }
       }
-      setCheckToken(false); 
+      setCheckToken(false);
     };
 
     initializeAuth();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, checkToken }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser, checkToken }}>{children}</AuthContext.Provider>
   );
 };
 

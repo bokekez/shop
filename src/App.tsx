@@ -8,7 +8,6 @@ import { CartProvider } from './context/cartContext';
 
 const App: React.FC = () => {
   return (
-    
     <AuthProvider>
       <CartProvider>
         <Router>
@@ -16,7 +15,7 @@ const App: React.FC = () => {
           <NavBar />
           <AppRoutes />
         </Router>
-        </CartProvider>
+      </CartProvider>
     </AuthProvider>
   );
 };

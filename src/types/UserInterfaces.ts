@@ -8,10 +8,10 @@ export interface User {
 export interface AuthContextType {
   user: User;
   checkToken: boolean;
-  setUser: (user: User) => void; 
+  setUser: (user: User) => void;
 }
 
-export interface UserResponse extends User{
+export interface UserResponse extends User {
   accessToken: string;
   message?: string;
 }

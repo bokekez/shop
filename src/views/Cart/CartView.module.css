@@ -104,7 +104,7 @@
   }
 
   .cartTable thead tr {
-    display: none; 
+    display: none;
   }
 
   .cartTable tr {
@@ -124,7 +124,7 @@
   }
 
   .cartTable td:before {
-    content: attr(data-label); 
+    content: attr(data-label);
     position: absolute;
     left: 0;
     width: 45%;

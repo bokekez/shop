@@ -27,27 +27,27 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
   }, []);
 
   useEffect(() => {
-    if(window.innerWidth <= 500 && window.innerHeight <= 900)
-      setSmallScreen(true)
+    if (window.innerWidth <= 500 && window.innerHeight <= 900) setSmallScreen(true);
   }, []);
 
-  const handleCategoryChange = ( event: React.ChangeEvent<HTMLSelectElement> ) => {
-    if(searchQuery) return showToastifyWarning('Can not filter by categories while searching', 'categoryFilter')
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (searchQuery)
+      return showToastifyWarning('Can not filter by categories while searching', 'categoryFilter');
     const category = event.target.value || null;
-    if(!category) {
-      setMaxPrice(undefined)
-      setMinPrice(undefined)
+    if (!category) {
+      setMaxPrice(undefined);
+      setMinPrice(undefined);
     }
     setSelectedCategory(category);
   };
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(Number(event.target.value) === 0) return setMinPrice(undefined)
+    if (Number(event.target.value) === 0) return setMinPrice(undefined);
     setMinPrice(Number(event.target.value));
   };
 
   const handleMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(Number(event.target.value) === 0) return setMaxPrice(undefined)
+    if (Number(event.target.value) === 0) return setMaxPrice(undefined);
     setMaxPrice(Number(event.target.value));
   };
 
@@ -60,85 +60,94 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
       return showToastifyWarning('Min and max price must be numbers', 'number');
     }
     if (!selectedCategory && (minPrice || maxPrice)) {
-      return showToastifyWarning('Categoy must be selected to apply min or max price', 'selectCategory');
+      return showToastifyWarning(
+        'Categoy must be selected to apply min or max price',
+        'selectCategory'
+      );
     }
-    if ((minPrice && maxPrice) && minPrice > maxPrice) {
+    if (minPrice && maxPrice && minPrice > maxPrice) {
       return showToastifyWarning('Max price must be greater then min price', 'selectCategory');
     }
     onApplyFilters(selectedCategory, minPrice, maxPrice, sortBy);
-    setOpenFilter(false)
+    setOpenFilter(false);
   };
 
   const handleOpenFilter = () => {
-    setOpenFilter(openFilter ? false : true)
-  }
+    setOpenFilter(openFilter ? false : true);
+  };
 
   return (
     <div>
-    {smallScreen && <button onClick={handleOpenFilter} className={styles.openButton}>{openFilter ? 'Close filter' : 'Open filter'}</button>}
-    {(!smallScreen || (smallScreen && openFilter)) && <div className={`${styles.filterContainer} ${smallScreen ? styles.filterContainerSmall : ''}`}>
-      <h3 className={styles.filterTitle}>Filters</h3>
-      <div className={styles.filterGroup}>
-        <label>Category</label>
-        <select
-          value={selectedCategory || ''}
-          onChange={handleCategoryChange}
-          className={styles.select}
+      {smallScreen && (
+        <button onClick={handleOpenFilter} className={styles.openButton}>
+          {openFilter ? 'Close filter' : 'Open filter'}
+        </button>
+      )}
+      {(!smallScreen || (smallScreen && openFilter)) && (
+        <div
+          className={`${styles.filterContainer} ${smallScreen ? styles.filterContainerSmall : ''}`}
         >
-          <option value="">All</option>
-          {categories.map((category, i) => (
-            <option key={i} value={category.name}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
+          <h3 className={styles.filterTitle}>Filters</h3>
+          <div className={styles.filterGroup}>
+            <label>Category</label>
+            <select
+              value={selectedCategory || ''}
+              onChange={handleCategoryChange}
+              className={styles.select}
+            >
+              <option value="">All</option>
+              {categories.map((category, i) => (
+                <option key={i} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      {selectedCategory ? <div className={styles.filterGroup}>
-        <label>Price Range For Categories:</label>
-        <div className={styles.priceInputs}>
-          <input
-            type="number"
-            value={minPrice}
-            onChange={handleMinPriceChange}
-            placeholder="Min"
-            min={0}
-            className={styles.priceInput}
-            disabled={!selectedCategory}
-          />
-          <input
-            type="number"
-            value={maxPrice}
-            onChange={handleMaxPriceChange}
-            placeholder="Max"
-            min={0}
-            className={styles.priceInput}
-            disabled={!selectedCategory}
-          />
+          {selectedCategory ? (
+            <div className={styles.filterGroup}>
+              <label>Price Range For Categories:</label>
+              <div className={styles.priceInputs}>
+                <input
+                  type="number"
+                  value={minPrice}
+                  onChange={handleMinPriceChange}
+                  placeholder="Min"
+                  min={0}
+                  className={styles.priceInput}
+                  disabled={!selectedCategory}
+                />
+                <input
+                  type="number"
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                  placeholder="Max"
+                  min={0}
+                  className={styles.priceInput}
+                  disabled={!selectedCategory}
+                />
+              </div>
+            </div>
+          ) : (
+            <label className={styles.filterInfo}>Select category to enable price filters</label>
+          )}
+
+          <div className={styles.filterGroup}>
+            <label>Sort By</label>
+            <select value={sortBy} onChange={handleSortByChange} className={styles.select}>
+              <option value="none">None</option>
+              <option value="priceAsc">Price Ascending</option>
+              <option value="priceDesc">Price Descending</option>
+              <option value="nameAsc">Name Ascending</option>
+              <option value="nameDesc">Name Descending</option>
+            </select>
+          </div>
+
+          <button className={styles.applyButton} onClick={handleSubmit}>
+            Apply Filters
+          </button>
         </div>
-        </div> :
-        <label className={styles.filterInfo}>Select category to enable price filters</label>
-      }
-
-      <div className={styles.filterGroup}>
-        <label>Sort By</label>
-        <select
-          value={sortBy}
-          onChange={handleSortByChange}
-          className={styles.select}
-        >
-          <option value="none">None</option>
-          <option value="priceAsc">Price Ascending</option>
-          <option value="priceDesc">Price Descending</option>
-          <option value="nameAsc">Name Ascending</option>
-          <option value="nameDesc">Name Descending</option>
-        </select>
-      </div>
-
-      <button className={styles.applyButton} onClick={handleSubmit}>
-        Apply Filters
-      </button>
-    </div> }
+      )}
     </div>
   );
 };

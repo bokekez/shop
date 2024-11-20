@@ -21,7 +21,7 @@ export interface Filters {
 }
 
 export interface sortQueryInterface {
- [key: string]: string;
+  [key: string]: string;
   none: string;
   priceAsc: string;
   priceDesc: string;

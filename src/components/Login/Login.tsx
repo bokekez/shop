@@ -1,10 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styles from './Login.module.css';
-import { loginUser } from '../../api/authApi'
-import {
-  showToastifyError,
-  showToastifySuccess,
-} from '../../config/toastifyConfig';
+import { loginUser } from '../../api/authApi';
+import { showToastifyError, showToastifySuccess } from '../../config/toastifyConfig';
 import { LoginProps } from '../../types/LoginInfercaes';
 import { AuthContext } from '../../context/authContext';
 
@@ -26,16 +23,16 @@ const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {
 
     try {
       const data = await loginUser(username, password);
-      if(data.message === 'Invalid credentials'){
+      if (data.message === 'Invalid credentials') {
         return showToastifyError('Invalid username or password. Please try again.', 'login');
-      } 
+      }
       localStorage.setItem('authToken', data.accessToken);
       authContext?.setUser({
         id: data.id,
         username: data.username,
         firstName: data.firstName,
         lastName: data.lastName,
-      })
+      });
       handleCloseLoginDialog();
       showToastifySuccess(`${username} logged in successfully!`);
     } catch {
@@ -57,11 +54,23 @@ const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {
         <form className={styles.loginForm} onSubmit={handleSubmit}>
           <label>
             Username:
-            <input type="text" value={username} onChange={handleUsernameChange} required className={styles.loginInput}/>
+            <input
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+              required
+              className={styles.loginInput}
+            />
           </label>
           <label>
             Password:
-            <input type="password" value={password} onChange={handlePasswordChange} required className={styles.loginInput}/>
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+              className={styles.loginInput}
+            />
           </label>
           <button type="submit" className={styles.submitButton}>
             Submit

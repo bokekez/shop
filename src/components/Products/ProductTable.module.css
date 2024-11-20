@@ -130,7 +130,7 @@ tbody tr:last-child td {
   color: var(--text-color);
 }
 
-.addToCartButton{
+.addToCartButton {
   color: white;
   background-color: #007bff;
   border: none;
@@ -138,12 +138,12 @@ tbody tr:last-child td {
   cursor: pointer;
 }
 
-.addToCartButton:hover{
+.addToCartButton:hover {
   background-color: var(--primary-color);
   color: var(--secondary-color);
 }
 
-.tableSpinner{
-  text-align: center; 
-    vertical-align: middle;
+.tableSpinner {
+  text-align: center;
+  vertical-align: middle;
 }
