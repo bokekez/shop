@@ -116,3 +116,9 @@ strong {
 .addToCartButton:hover {
   background-color: #2980b9;
 }
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 8rem;
+}

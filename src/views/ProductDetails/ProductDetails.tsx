@@ -7,6 +7,7 @@ import { showToastifyError, showToastifySuccess  } from '../../config/toastifyCo
 import { CartContext } from '../../context/cartContext';
 import { AuthContext } from '../../context/authContext';
 import { CartItem } from '../../types/CartInterfaces';
+import Spinner from '../../components/Spinner/Spinner';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -64,7 +65,11 @@ const ProductDetails: React.FC = () => {
   };
 
   if (loading) {
-    return <p>Loading product details...</p>;
+    return (
+      <div className={styles.spinnerContainer}>
+        <Spinner />
+      </div>
+    )
   }
 
   if (!product) {
