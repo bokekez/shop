@@ -14,6 +14,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
   useEffect(() => {
+    if (window.innerWidth <= 500 && window.innerHeight <= 900) setSmallScreen(true);
     const loadCategories = async () => {
       try {
         const categoryList = await fetchCategories();
@@ -26,9 +27,9 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
     loadCategories();
   }, []);
 
-  useEffect(() => {
-    if (window.innerWidth <= 500 && window.innerHeight <= 900) setSmallScreen(true);
-  }, []);
+  // useEffect(() => {
+  //   if (window.innerWidth <= 500 && window.innerHeight <= 900) setSmallScreen(true);
+  // }, []);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (searchQuery)
