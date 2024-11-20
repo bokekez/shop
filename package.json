@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://bokekez.github.io/shop",
   "build": "react-scripts build",
   "scripts": {
     "dev": "vite",
@@ -11,7 +10,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "build:gh": "PUBLIC_URL=https://bokekez.github.io/shop react-scripts build",
+    "build:netlify": "react-scripts build"
   },
   "dependencies": {
     "prettier": "^3.3.3",
