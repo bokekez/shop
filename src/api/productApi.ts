@@ -11,21 +11,7 @@ export const fetchProducts = async  (
 ): Promise<ProductResponse> => {
   const sortByQuery = sortQueryMap[sort]
   const url = `${BASE_URL}?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Error fetching products: ${response.statusText}`);
-    }
-    const data = await response.json();
-    return {
-      products: data.products,
-      total: data.total,
-    };
-  } catch (error) {
-    console.error('Failed to fetch products:', error);
-    throw error;
-  }
+  return sendRequest (url)
 }
 
 export const fetchProductsByCategoy = async  (
@@ -37,22 +23,7 @@ export const fetchProductsByCategoy = async  (
 ): Promise<ProductResponse> => {
   const sortByQuery = sortQueryMap[sort]
   const url = `${BASE_URL}/category/${category}/?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Error fetching products: ${response.statusText}`);
-    }
-    const data = await response.json();
-    console.log(data);
-    return {
-      products: data.products,
-      total: data.total,
-    };
-  } catch (error) {
-    console.error('Failed to fetch products:', error);
-    throw error;
-  }
+  return sendRequest (url)
 }
 
 export const searchProducts = async (
@@ -64,22 +35,16 @@ export const searchProducts = async (
 ): Promise<ProductResponse> => {
   const sortByQuery = sortQueryMap[sort]
   const url = `${BASE_URL}/search?q=${query}&&limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Error fetching products: ${response.statusText}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    throw error;
-  }
+  return sendRequest (url)
 };
 
 
 export const fetchProductById = async (id: number): Promise<Product> => {
   const url = `${BASE_URL}/${id}`;
+  return sendRequest (url)
+};
+
+const sendRequest = async (url: string) => {
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -91,4 +56,4 @@ export const fetchProductById = async (id: number): Promise<Product> => {
     console.error("Error fetching categories:", error);
     throw error;
   }
-};
+}

@@ -104,7 +104,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
             </span>
             <button
               onClick={onNextPage}
-              disabled={currentPage === lastPage}
+              disabled={currentPage >= lastPage}
               className={styles.paginationButton}
             >
               Next

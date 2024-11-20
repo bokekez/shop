@@ -71,6 +71,8 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  right: 35%;
+  left: 35%;
 }
 
 .applyButton:hover {
