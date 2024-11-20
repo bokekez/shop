@@ -7,6 +7,16 @@
   gap: 20px;
   padding: 20px;
   font-family: 'Arial', sans-serif;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+@media (max-width: 900px) { 
+  .productDetailsContainer {
+    flex-direction: column;
+    margin-left: 5%; 
+    margin-right: 5%;
+  }
 }
 
 .imageSection {

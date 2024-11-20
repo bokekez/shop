@@ -9,7 +9,8 @@
   margin-bottom: 2rem;
 }
 
-.cartTable th, .cartTable td {
+.cartTable th,
+.cartTable td {
   border: 1px solid #ddd;
   padding: 0.5rem;
   text-align: left;
@@ -51,26 +52,13 @@
   padding: 0.3rem;
 }
 
-.removeButton {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.removeButton:hover {
-  background-color: #c0392b;
-}
-
-.notLogedInInfo{
+.notLogedInInfo {
   margin-top: 8rem;
   display: flex;
   justify-content: center;
 }
 
-.cartLink{
+.cartLink {
   text-decoration: none;
   color: rgb(54, 146, 217);
 }
@@ -103,4 +91,51 @@
 
 .cartActionButton:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .cartTable,
+  .cartTable thead,
+  .cartTable tbody,
+  .cartTable th,
+  .cartTable td,
+  .cartTable tr {
+    display: block;
+  }
+
+  .cartTable thead tr {
+    display: none; 
+  }
+
+  .cartTable tr {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .cartTable td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: 0.7rem 0.5rem;
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  .cartTable td:before {
+    content: attr(data-label); 
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+  }
+
+  .thumbnail {
+    width: 80px;
+    height: 80px;
+  }
 }
