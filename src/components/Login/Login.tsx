@@ -9,8 +9,8 @@ import { LoginProps } from '../../types/LoginInfercaes';
 import { AuthContext } from '../../context/authContext';
 
 const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const authContext = useContext(AuthContext);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

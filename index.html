@@ -9,12 +9,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      const redirectPath = params.get('redirect');
-      if (redirectPath) {
-        window.history.replaceState({}, '', redirectPath);
-      }
-    </script>
   </body>
 </html>
