@@ -14,12 +14,8 @@ const defaultOptions: ToastOptions = {
 export const showToastifyError = (error: string, toastId?: string | number) =>
   toast.error(error, { ...defaultOptions, toastId });
 
-export const showToastifySuccess = (
-  message: string,
-  toastId?: string | number
-) => toast.success(message, { ...defaultOptions, toastId });
+export const showToastifySuccess = (message: string, toastId?: string | number) =>
+  toast.success(message, { ...defaultOptions, toastId });
 
-export const showToastifyWarning = (
-  message: string,
-  toastId?: string | number
-) => toast.warning(message, { ...defaultOptions, toastId });
+export const showToastifyWarning = (message: string, toastId?: string | number) =>
+  toast.warning(message, { ...defaultOptions, toastId });

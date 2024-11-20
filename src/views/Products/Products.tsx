@@ -4,11 +4,7 @@ import Filter from '../../components/Filter/Filter';
 import styles from './Products.module.css';
 import Search from '../../components/Search/Search';
 import { showToastifyError } from '../../config/toastifyConfig';
-import {
-  fetchProducts,
-  fetchProductsByCategoy,
-  searchProducts,
-} from '../../api/productApi';
+import { fetchProducts, fetchProductsByCategoy, searchProducts } from '../../api/productApi';
 import { Product } from '../../types/ProductInterfaces';
 import { Filters } from '../../types/FilterInterfaces';
 import { CartItem } from '../../types/CartInterfaces';
@@ -28,7 +24,7 @@ const Products: React.FC = () => {
     sortBy: undefined,
   });
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [seaching, setSeaching] = useState<boolean>(false)
+  const [seaching, setSeaching] = useState<boolean>(false);
 
   const { cartItems } = useContext(CartContext)!;
 
@@ -72,29 +68,16 @@ const Products: React.FC = () => {
 
         response.products = response.products.filter(
           (product) =>
-            product &&
-            product.price >= minPriceNormalized &&
-            product.price <= maxPriceNormalized
+            product && product.price >= minPriceNormalized && product.price <= maxPriceNormalized
         );
 
         return response;
       }
-      return await fetchProducts(
-        PRODUCTS_SELECT,
-        PRODUCTS_PER_PAGE,
-        skip,
-        filters.sortBy
-      );
+      return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip, filters.sortBy);
     };
 
     loadProducts();
-  }, [
-    PRODUCTS_SELECT,
-    PRODUCTS_PER_PAGE,
-    currentPage,
-    seaching,
-    filterChange,
-  ]);
+  }, [PRODUCTS_SELECT, PRODUCTS_PER_PAGE, currentPage, seaching, filterChange]);
 
   const lastPage = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 
@@ -128,8 +111,8 @@ const Products: React.FC = () => {
 
   const searchString = (query: string) => {
     setSearchQuery(query);
-  }
- 
+  };
+
   const productsWithStock = products.map((product) => {
     const cartQuantity = cartItems.find((item: CartItem) => item.id === product.id)?.quantity || 0;
     return {
@@ -140,9 +123,9 @@ const Products: React.FC = () => {
 
   return (
     <div className={styles.productsContainer}>
-      <Search onSearch={handleSearch} searchString={searchString}/>
+      <Search onSearch={handleSearch} searchString={searchString} />
       <div className={styles.tableContainer}>
-        <Filter onApplyFilters={handleApplyFilters} searchQuery={searchQuery}/>
+        <Filter onApplyFilters={handleApplyFilters} searchQuery={searchQuery} />
         <ProductTable
           products={productsWithStock}
           loading={loading}

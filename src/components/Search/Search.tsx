@@ -7,7 +7,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, searchString }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
-    searchString(event.target.value)
+    searchString(event.target.value);
   };
 
   const handleSearch = () => {

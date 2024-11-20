@@ -1,30 +1,30 @@
 import { ProductResponse, Product } from '../types/ProductInterfaces';
 import { sortQueryMap } from '../types/FilterInterfaces';
 
-const BASE_URL='https://dummyjson.com/products'
+const BASE_URL = 'https://dummyjson.com/products';
 
-export const fetchProducts = async  (
+export const fetchProducts = async (
   select: string,
   limit = 20,
   skip = 0,
   sort = 'none'
 ): Promise<ProductResponse> => {
-  const sortByQuery = sortQueryMap[sort]
+  const sortByQuery = sortQueryMap[sort];
   const url = `${BASE_URL}?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
-  return sendRequest (url)
-}
+  return sendRequest(url);
+};
 
-export const fetchProductsByCategoy = async  (
+export const fetchProductsByCategoy = async (
   category: string,
   select: string,
   limit = 20,
   skip = 0,
   sort = 'none'
 ): Promise<ProductResponse> => {
-  const sortByQuery = sortQueryMap[sort]
+  const sortByQuery = sortQueryMap[sort];
   const url = `${BASE_URL}/category/${category}/?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
-  return sendRequest (url)
-}
+  return sendRequest(url);
+};
 
 export const searchProducts = async (
   query: string,
@@ -33,15 +33,14 @@ export const searchProducts = async (
   skip = 0,
   sort = 'none'
 ): Promise<ProductResponse> => {
-  const sortByQuery = sortQueryMap[sort]
+  const sortByQuery = sortQueryMap[sort];
   const url = `${BASE_URL}/search?q=${query}&&limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
-  return sendRequest (url)
+  return sendRequest(url);
 };
-
 
 export const fetchProductById = async (id: number): Promise<Product> => {
   const url = `${BASE_URL}/${id}`;
-  return sendRequest (url)
+  return sendRequest(url);
 };
 
 const sendRequest = async (url: string) => {
@@ -53,7 +52,7 @@ const sendRequest = async (url: string) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error('Error fetching categories:', error);
     throw error;
   }
-}
+};

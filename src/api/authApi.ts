@@ -1,5 +1,5 @@
 const BASE_URL = 'https://dummyjson.com/auth';
-import { UserResponse } from "../types/UserInterfaces";
+import { UserResponse } from '../types/UserInterfaces';
 
 export const loginUser = async (username: string, password: string): Promise<UserResponse> => {
   try {
@@ -9,13 +9,13 @@ export const loginUser = async (username: string, password: string): Promise<Use
       body: JSON.stringify({
         username,
         password,
-        expiresInMins: 30, 
+        expiresInMins: 30,
       }),
-      credentials: 'omit', 
-    }); 
+      credentials: 'omit',
+    });
 
     const data = await response.json();
-    return data; 
+    return data;
   } catch (error) {
     console.error('Login error:', error);
     throw error;
@@ -27,13 +27,13 @@ export const checkUserToken = async (token: string): Promise<UserResponse> => {
     const response = await fetch(`${BASE_URL}/me`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`, 
-      }, 
-      credentials: 'omit', 
-    }); 
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: 'omit',
+    });
 
     const data = await response.json();
-    return data; 
+    return data;
   } catch (error) {
     console.error('Login error:', error);
     throw error;
