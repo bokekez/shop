@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import styles from './Search.module.css';
 import { SearchProps } from '../../types/ProductInterfaces';
 
-const Search: React.FC<SearchProps> = ({ onSearch }) => {
+const Search: React.FC<SearchProps> = ({ onSearch, searchString }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+    searchString(event.target.value)
   };
 
   const handleSearch = () => {
-    onSearch(searchQuery.trim());
+    onSearch(true);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

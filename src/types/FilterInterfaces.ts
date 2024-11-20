@@ -10,6 +10,7 @@ export interface FilterProps {
     sortBy?: string,
     order?: string
   ) => void;
+  searchQuery: string;
 }
 
 export interface Filters {

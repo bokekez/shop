@@ -1,12 +1,15 @@
 .searchContainer {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   gap: 8px;
   margin: 16px 0;
 }
 
 .searchInput {
-  flex: 1;
+  width: 25%;
+  min-width: 8rem;
   padding: 8px;
   font-size: 14px;
   border: 1px solid #ccc;

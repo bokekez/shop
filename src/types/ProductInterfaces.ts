@@ -26,7 +26,8 @@ export interface ProductTableProps {
 }
 
 export interface SearchProps {
-  onSearch: (query: string) => void;
+  onSearch: (search: boolean) => void;
+  searchString: (query: string) => void;
 }
 
 export interface ProductDetailsInterface {

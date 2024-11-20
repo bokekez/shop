@@ -27,7 +27,8 @@ const Products: React.FC = () => {
     maxPrice: undefined,
     sortBy: undefined,
   });
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [seaching, setSeaching] = useState<boolean>(false)
 
   const { cartItems } = useContext(CartContext)!;
 
@@ -42,6 +43,7 @@ const Products: React.FC = () => {
         showToastifyError('Failed to fetch products.');
       } finally {
         setLoading(false);
+        setSeaching(false);
       }
     };
 
@@ -90,7 +92,7 @@ const Products: React.FC = () => {
     PRODUCTS_SELECT,
     PRODUCTS_PER_PAGE,
     currentPage,
-    searchQuery,
+    seaching,
     filterChange,
   ]);
 
@@ -119,10 +121,14 @@ const Products: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
+  const handleSearch = () => {
+    setSeaching(true);
     setCurrentPage(1);
   };
+
+  const searchString = (query: string) => {
+    setSearchQuery(query);
+  }
  
   const productsWithStock = products.map((product) => {
     const cartQuantity = cartItems.find((item: CartItem) => item.id === product.id)?.quantity || 0;
@@ -134,9 +140,9 @@ const Products: React.FC = () => {
 
   return (
     <div className={styles.productsContainer}>
-      <Search onSearch={handleSearch} />
+      <Search onSearch={handleSearch} searchString={searchString}/>
       <div className={styles.tableContainer}>
-        <Filter onApplyFilters={handleApplyFilters} />
+        <Filter onApplyFilters={handleApplyFilters} searchQuery={searchQuery}/>
         <ProductTable
           products={productsWithStock}
           loading={loading}

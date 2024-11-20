@@ -4,7 +4,7 @@ import { fetchCategories } from '../../api/categoriesApi';
 import { Categories, FilterProps } from '../../types/FilterInterfaces';
 import { showToastifyError, showToastifyWarning } from '../../config/toastifyConfig';
 
-const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
+const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
   const [categories, setCategories] = useState<Categories[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [minPrice, setMinPrice] = useState<number | undefined>();
@@ -31,9 +31,9 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
       setSmallScreen(true)
   }, []);
 
-  const handleCategoryChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleCategoryChange = ( event: React.ChangeEvent<HTMLSelectElement> ) => {
+    console.log(searchQuery)
+    if(searchQuery) return showToastifyWarning('Can not filter by categories while searching', 'categoryFilter')
     const category = event.target.value || null;
     setSelectedCategory(category);
   };
@@ -69,8 +69,6 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters }) => {
   const handleOpenFilter = () => {
     setOpenFilter(openFilter ? false : true)
   }
-
-  console.log('scr', smallScreen, smallScreen && openFilter)
 
   return (
     <div>

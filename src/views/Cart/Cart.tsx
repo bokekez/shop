@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { CartContext } from '../../context/cartContext';
 import styles from './CartView.module.css';
 import { CartItem } from '../../types/CartInterfaces';
-import { showToastifySuccess } from '../../config/toastifyConfig';
+import { showToastifySuccess, showToastifyWarning } from '../../config/toastifyConfig';
 import { AuthContext } from '../../context/authContext';
 import { Link } from 'react-router-dom';
 
@@ -14,8 +14,8 @@ const Cart: React.FC = () => {
   );
 
   const handleInputChange = (id: number, value: string) => {
-
     const parsedValue = parseInt(value, 10);
+    if(parsedValue < 1) return showToastifyWarning('Must remove at least one item', 'removeMin')
     setRemoveQuantities((prev) => ({
       ...prev,
       [id]: parsedValue > 0 ? parsedValue : 1, 
