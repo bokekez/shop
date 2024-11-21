@@ -17,3 +17,9 @@ To format the project run:
 Project is hosted on netlify:
 
 https://precious-gingersnap-ed0f73.netlify.app/products
+
+Future development for project: https://github.com/bokekez/shop/blob/master/FutureDevelopment.text
+
+App architecture: https://github.com/bokekez/shop/blob/master/Architecture.pdf
+
+App workflow: https://github.com/bokekez/shop/blob/master/Workflow.pdf
