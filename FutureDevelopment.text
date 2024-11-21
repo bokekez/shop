@@ -21,7 +21,8 @@ In the future, transition into more secure storing options like "httpOnly."
 
 CI/CD:
 
-1. Continuous Integration stands for automated code linting, testing, and building, and Continuous Delivery for automated deployment to staging or production.
+1. Continuous Integration stands for automated code linting, testing, and building, and Continuous Delivery ensured that the code is constantly in a deployable state ready
+for release or deployment.
 
 2. The idea behind this is that developers are constantly committing code, and before that code is merged and deployed into production, we can run tests in
 order to detect potential issues early. It sets a standard for development and makes cooperation on large projects easier.
