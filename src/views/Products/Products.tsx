@@ -10,6 +10,8 @@ import { Filters } from '../../types/FilterInterfaces';
 import { CartItem } from '../../types/CartInterfaces';
 import { CartContext } from '../../context/cartContext';
 import { PRODUCTS_PER_PAGE, PRODUCTS_SELECT } from '../../constants/productConsts';
+import { AuthContext } from '../../context/authContext';
+import { refreshToken } from '../../api/authApi';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,6 +29,7 @@ const Products: React.FC = () => {
   const [seaching, setSeaching] = useState<boolean>(false);
 
   const { cartItems } = useContext(CartContext)!;
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -35,6 +38,10 @@ const Products: React.FC = () => {
         const response = await getProducts();
         setProducts(response.products);
         setTotalProducts(response.total);
+        if(authContext?.user?.id){
+          const token = localStorage.getItem('authToken');
+          if(token) refreshToken(token)
+        }
       } catch {
         showToastifyError('Failed to fetch products.');
       } finally {
@@ -43,41 +50,42 @@ const Products: React.FC = () => {
       }
     };
 
-    const getProducts = async () => {
-      const skip = (currentPage - 1) * PRODUCTS_PER_PAGE;
-      if (searchQuery) {
-        return await searchProducts(
-          searchQuery,
-          PRODUCTS_SELECT,
-          PRODUCTS_PER_PAGE,
-          skip,
-          filters.sortBy
-        );
-      }
-      if (filters.category) {
-        const minPriceNormalized = filters.minPrice || 0;
-        const maxPriceNormalized = filters.maxPrice || Infinity;
-
-        const response = await fetchProductsByCategoy(
-          filters.category,
-          PRODUCTS_SELECT,
-          PRODUCTS_PER_PAGE,
-          skip,
-          filters.sortBy
-        );
-
-        response.products = response.products.filter(
-          (product) =>
-            product && product.price >= minPriceNormalized && product.price <= maxPriceNormalized
-        );
-
-        return response;
-      }
-      return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip, filters.sortBy);
-    };
-
     loadProducts();
   }, [PRODUCTS_SELECT, PRODUCTS_PER_PAGE, currentPage, seaching, filterChange]);
+
+  const getProducts = async () => {
+    const skip = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    if (searchQuery) {
+      return await searchProducts(
+        searchQuery,
+        PRODUCTS_SELECT,
+        PRODUCTS_PER_PAGE,
+        skip,
+        filters.sortBy
+      );
+    }
+    if (filters.category) {
+      const minPriceNormalized = filters.minPrice || 0;
+      const maxPriceNormalized = filters.maxPrice || Infinity;
+
+      const response = await fetchProductsByCategoy(
+        filters.category,
+        PRODUCTS_SELECT,
+        PRODUCTS_PER_PAGE,
+        skip,
+        filters.sortBy
+      );
+
+      response.products = response.products.filter(
+        (product) =>
+          product && product.price >= minPriceNormalized && product.price <= maxPriceNormalized
+      );
+
+      return response;
+    }
+    return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip, filters.sortBy);
+  };
+
 
   const lastPage = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 

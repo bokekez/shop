@@ -39,3 +39,23 @@ export const checkUserToken = async (token: string): Promise<UserResponse> => {
     throw error;
   }
 };
+
+export const refreshToken = async (token: string): Promise<UserResponse> => {
+  try {
+    const response = await fetch(`${BASE_URL}/refresh`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        refreshToken: `${token}`, 
+        expiresInMins: 30, 
+      }),
+      credentials: 'omit',
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Login error:', error);
+    throw error;
+  }
+};
