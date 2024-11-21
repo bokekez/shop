@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Filter.module.css';
 import { fetchCategories } from '../../api/categoriesApi';
-import { Categories, FilterProps } from '../../types/FilterInterfaces';
+import { Categories, FilterProps } from '../../types/FilterModels';
 import { showToastifyError, showToastifyWarning } from '../../config/toastifyConfig';
 
 const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
@@ -26,10 +26,6 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
 
     loadCategories();
   }, []);
-
-  // useEffect(() => {
-  //   if (window.innerWidth <= 500 && window.innerHeight <= 900) setSmallScreen(true);
-  // }, []);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (searchQuery)
@@ -90,14 +86,15 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
         >
           <h3 className={styles.filterTitle}>Filters</h3>
           <div className={styles.filterGroup}>
-            <label>Category</label>
-            <select
+            <label htmlFor="category-select">Category</label>
+            <select 
+              id="category-select"
               value={selectedCategory || ''}
               onChange={handleCategoryChange}
               className={styles.select}
             >
               <option value="">All</option>
-              {categories.map((category, i) => (
+              {categories?.map((category, i) => (
                 <option key={i} value={category.name}>
                   {category.name}
                 </option>

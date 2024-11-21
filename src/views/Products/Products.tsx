@@ -5,13 +5,11 @@ import styles from './Products.module.css';
 import Search from '../../components/Search/Search';
 import { showToastifyError } from '../../config/toastifyConfig';
 import { fetchProducts, fetchProductsByCategoy, searchProducts } from '../../api/productApi';
-import { Product } from '../../types/ProductInterfaces';
-import { Filters } from '../../types/FilterInterfaces';
-import { CartItem } from '../../types/CartInterfaces';
+import { Product } from '../../types/ProductModels';
+import { Filters } from '../../types/FilterModels';
+import { CartItem } from '../../types/CartModels';
 import { CartContext } from '../../context/cartContext';
 import { PRODUCTS_PER_PAGE, PRODUCTS_SELECT } from '../../constants/productConsts';
-import { AuthContext } from '../../context/authContext';
-import { refreshToken } from '../../api/authApi';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -29,7 +27,6 @@ const Products: React.FC = () => {
   const [seaching, setSeaching] = useState<boolean>(false);
 
   const { cartItems } = useContext(CartContext)!;
-  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -38,10 +35,6 @@ const Products: React.FC = () => {
         const response = await getProducts();
         setProducts(response.products);
         setTotalProducts(response.total);
-        if(authContext?.user?.id){
-          const token = localStorage.getItem('authToken');
-          if(token) refreshToken(token)
-        }
       } catch {
         showToastifyError('Failed to fetch products.');
       } finally {

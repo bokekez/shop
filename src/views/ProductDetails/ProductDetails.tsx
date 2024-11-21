@@ -1,21 +1,20 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../../api/productApi';
-import { ProductDetailsInterface } from '../../types/ProductInterfaces';
+import { ProductDetailsInterface } from '../../types/ProductModels';
 import styles from './ProductDetails.module.css';
 import { showToastifyError, showToastifySuccess } from '../../config/toastifyConfig';
 import { CartContext } from '../../context/cartContext';
 import { AuthContext } from '../../context/authContext';
-import { CartItem } from '../../types/CartInterfaces';
+import { CartItem } from '../../types/CartModels';
 import Spinner from '../../components/Spinner/Spinner';
-import { refreshToken } from '../../api/authApi';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<ProductDetailsInterface | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [addQuantity, setAddQuantity] = useState(1);
+  const [addQuantity, setAddQuantity] = useState<number>(1);
 
   const authContext = useContext(AuthContext);
   const { cartItems, addToCart } = useContext(CartContext)!;
@@ -28,11 +27,6 @@ const ProductDetails: React.FC = () => {
           const fetchedProduct = await fetchProductById(parseInt(id));
           setProduct(fetchedProduct);
           setSelectedImage(fetchedProduct.images[0]);
-          if(authContext?.user?.id){
-            const token = localStorage.getItem('authToken');
-            console.log(token)
-            if(token) refreshToken(token)
-          }
         }
       } catch {
         showToastifyError('Failed to fetch product details.');

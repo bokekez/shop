@@ -1,4 +1,4 @@
-import { Categories } from '../types/FilterInterfaces';
+import { Categories } from '../types/FilterModels';
 
 export const fetchCategories = async (): Promise<Categories[]> => {
   const url = 'https://dummyjson.com/products/categories';

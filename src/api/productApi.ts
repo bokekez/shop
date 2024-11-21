@@ -1,5 +1,6 @@
-import { ProductResponse, Product } from '../types/ProductInterfaces';
-import { sortQueryMap } from '../types/FilterInterfaces';
+import { ProductResponse, Product } from '../types/ProductModels';
+import { sortQueryMap } from '../types/FilterModels';
+import { refreshToken } from './authApi';
 
 const BASE_URL = 'https://dummyjson.com/products';
 
@@ -45,6 +46,8 @@ export const fetchProductById = async (id: number): Promise<Product> => {
 
 const sendRequest = async (url: string) => {
   try {
+    const token = localStorage.getItem('authToken');
+    if(token) refreshToken(token)
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Error fetching products: ${response.statusText}`);

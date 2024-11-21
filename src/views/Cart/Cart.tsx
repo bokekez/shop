@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { CartContext } from '../../context/cartContext';
 import styles from './CartView.module.css';
-import { CartItem } from '../../types/CartInterfaces';
+import { CartItem } from '../../types/CartModels';
 import { showToastifySuccess, showToastifyWarning } from '../../config/toastifyConfig';
 import { AuthContext } from '../../context/authContext';
 import { Link } from 'react-router-dom';
