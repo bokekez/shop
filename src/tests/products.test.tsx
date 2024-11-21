@@ -14,15 +14,12 @@ jest.mock('../api/productApi', () => ({
 }));
 
 jest.mock('../api/categoriesApi', () => ({
+  getBaseUrl: jest.fn(),
   fetchCategories: jest.fn(),
 }));
 
 jest.mock('../config/toastifyConfig', () => ({
   showToastifyError: jest.fn(),
-}));
-
-jest.mock('../api/authApi', () => ({
-  refreshToken: jest.fn(),
 }));
 
 const mockAuthContext = {
@@ -169,7 +166,14 @@ describe('Products View', () => {
       category: 'Electronics',
       description: 'A sample product',
     };
-    const extendedMockProducts = mockProducts.concat(Array(30).fill(fillObj));
+    const extendedMockProducts = mockProducts.concat(
+      Array(30)
+        .fill(null)
+        .map((_, index) => ({
+          ...fillObj,
+          id: mockProducts.length + index + 1, 
+        }))
+    );
     (fetchProducts as jest.Mock).mockResolvedValueOnce({
       products: extendedMockProducts.slice(0, 20),
       total: 30,

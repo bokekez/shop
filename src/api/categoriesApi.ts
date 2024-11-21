@@ -1,6 +1,5 @@
 import { Categories } from '../types/FilterModels';
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { BASE_URL } from '../constants/envConsts';
 
 export const fetchCategories = async (): Promise<Categories[]> => {
   const url = `${BASE_URL}/products/categories`;
