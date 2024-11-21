@@ -1,8 +1,7 @@
 import { ProductResponse, Product } from '../types/ProductModels';
 import { sortQueryMap } from '../types/FilterModels';
 import { checkAndRefreshToken } from './authApi';
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { BASE_URL } from '../constants/envConsts';
 
 export const fetchProducts = async (
   select: string,
