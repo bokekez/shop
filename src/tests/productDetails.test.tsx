@@ -105,8 +105,6 @@ describe('ProductDetails', () => {
     const addToCartButton = screen.getByText('Add to Cart');
     fireEvent.click(addToCartButton);
 
-    console.log(screen.debug())
-
     expect(mockCartContext.addToCart).toHaveBeenCalledWith(
       {
         id: 1,

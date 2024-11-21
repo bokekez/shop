@@ -8,6 +8,7 @@ import { CartContext } from '../../context/cartContext';
 import { AuthContext } from '../../context/authContext';
 import { CartItem } from '../../types/CartInterfaces';
 import Spinner from '../../components/Spinner/Spinner';
+import { refreshToken } from '../../api/authApi';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +28,11 @@ const ProductDetails: React.FC = () => {
           const fetchedProduct = await fetchProductById(parseInt(id));
           setProduct(fetchedProduct);
           setSelectedImage(fetchedProduct.images[0]);
+          if(authContext?.user?.id){
+            const token = localStorage.getItem('authToken');
+            console.log(token)
+            if(token) refreshToken(token)
+          }
         }
       } catch {
         showToastifyError('Failed to fetch product details.');
