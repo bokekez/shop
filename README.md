@@ -13,3 +13,7 @@ To run the tests run:
 To format the project run:
 
 - npm run format
+
+Project is hosted on netlify:
+
+https://precious-gingersnap-ed0f73.netlify.app/products
