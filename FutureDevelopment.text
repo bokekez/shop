@@ -1,42 +1,42 @@
 Securing data:
 
-1. Use HTTPS ensure all API endpoints are served over HTTPS to encrypt data in transit. Obtain SSL/TLS certificates from trusted authorities.
+1. Use HTTPS to ensure all API endpoints are served over HTTPS to encrypt data in transit. Obtain SSL/TLS certificates from trusted authorities.
 
-2. Avoid Storing Sensitive Data on the client side, avoid store sensitive information like passwords or access tokens in local storage or session storage.
- In the future transition into more secure storing options like "httpOnly"
+2. Avoid storing sensitive data on the client side; avoid storing sensitive information like passwords or access tokens in local storage or session storage.
+In the future, transition into more secure storing options like "httpOnly."
 
 3. Enable CORS to control origins of requests.
 
-4. Use OAuth allowing you to log in to our site with an existing trusted login such as google, facebook etc.
+4. Use OAuth, allowing you to log in to our site with an existing trusted login such as Google, Facebook, etc.
 
-5. YWT if we scale this projec to use our own backend we should use JWT for secure authorization and access as well as utilizing Bearer Tokens and Refresh Tokens .
+5. YWT If we scale this project to use our own backend, we should use JWT for secure authorization and access as well as utilize Bearer Tokens and Refresh Tokens.
 
 6. Encrypt sensitive data transfers, such as using Bcrypt to encrypt passwords while sending them to the backend. And always save the encrypted hash in the database.
 
-7. Use Environment Variables .env.production and .env.development this allows us to hide sensitive information and control the sources of our enviromental variables.
+7. Use Environment Variables. .env.production and .env.development allow us to hide sensitive information and control the sources of our environmental variables.
 
 8. Always validate incoming data to prevent attacks like SQL Injection or Cross-Site Scripting (XSS).
 
-9. Don't show any API keys or connections strings.
+9. Don't show any API keys or connection strings.
 
-CI-CD:
+CI/CD:
 
-1. Continuous Integration stands for automated code linting, testing, building and Continuous Delivery for automated deployment to staging or production.
+1. Continuous Integration stands for automated code linting, testing, and building, and Continuous Delivery for automated deployment to staging or production.
 
-2. The idea behind this is that developers are constantly commiting code and before that code is merged and deployed into production we can run tests in
+2. The idea behind this is that developers are constantly committing code, and before that code is merged and deployed into production, we can run tests in
 order to detect potential issues early. It sets a standard for development and makes cooperation on large projects easier.
 
-3. CI/CD reduces risk and increases stability allowing for more frequent commits.
+3. CI/CD reduces risk and increases stability, allowing for more frequent commits.
 
-4. A pipleline failure would alert the developer that there is an issue with the code that is commited and action is required.
+4. A pipeline failure would alert the developer that there is an issue with the code that is committed and action is required.
 
-5. To set it up we need to enable a github pipeline using github actions.
+5. To set it up we need to enable a GitHub pipeline using GitHub Actions.
 
 6. A basic pipeline would run jobs like these:
-  - lint which will check the style of the commited code for example with eslint.
-  - testing which will run predefined tests with for example jest.
-  - build runs the npm run bild which generates a dist file that is read for deployment.
-  - deploy deploys the dist file to a hosting service.
+- lint, which will check the style of the committed code, for example, with eslint.
+- testing, which will run predefined tests with, for example, Jest.
+- Build runs the npm run build, which generates a dist file that is readied for deployment.
+- deploy deploys the dist file to a hosting service.
 
-7. We can use enviromental files to point to different locations and use different variable values for development and productions, this was simulated in this project as well 
+7. We can use environmental files to point to different locations and use different variable values for development and production; this was simulated in this project as well.
 with .env.development and .env.production.
