@@ -79,7 +79,6 @@ const Products: React.FC = () => {
     return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip, filters.sortBy);
   };
 
-
   const lastPage = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 
   const handleNextPage = () => {

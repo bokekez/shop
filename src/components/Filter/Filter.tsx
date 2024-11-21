@@ -87,7 +87,7 @@ const Filter: React.FC<FilterProps> = ({ onApplyFilters, searchQuery }) => {
           <h3 className={styles.filterTitle}>Filters</h3>
           <div className={styles.filterGroup}>
             <label htmlFor="category-select">Category</label>
-            <select 
+            <select
               id="category-select"
               value={selectedCategory || ''}
               onChange={handleCategoryChange}
