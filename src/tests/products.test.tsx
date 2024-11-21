@@ -1,8 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Products from '../views/Products/Products'
+import Products from '../views/Products/Products';
 import { CartContext } from '../context/cartContext';
 import { AuthContext } from '../context/authContext';
-import { fetchProducts, fetchProductsByCategoy, searchProducts } from '../api/productApi'
+import { fetchProducts, fetchProductsByCategoy, searchProducts } from '../api/productApi';
 import { fetchCategories } from '../api/categoriesApi';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
@@ -26,11 +26,11 @@ jest.mock('../api/authApi', () => ({
 }));
 
 const mockAuthContext = {
-  user: { 
-    id: 1, 
+  user: {
+    id: 1,
     firstName: 'test',
     lastName: 'user',
-    username: 'testuser' 
+    username: 'testuser',
   },
   checkToken: false,
   setUser: jest.fn(),
@@ -66,9 +66,9 @@ const mockProducts = [
 
 const mockCategories = [
   {
-    name: 'Electronics'
-  }
-]
+    name: 'Electronics',
+  },
+];
 
 describe('Products View', () => {
   beforeEach(() => {
@@ -92,16 +92,16 @@ describe('Products View', () => {
     );
 
     expect(document.querySelector('.tableSpinner')).toBeInTheDocument();
-    expect(fetchProducts).toHaveBeenCalled()
+    expect(fetchProducts).toHaveBeenCalled();
 
     const test = () => {
       expect(screen.getByText('Test Product 1')).toBeInTheDocument();
       expect(screen.getByText('Test Product 2')).toBeInTheDocument();
-    }
-    
+    };
+
     await waitFor(() => {
-      test()
-    })
+      test();
+    });
   });
 
   test('applies filters correctly', async () => {
@@ -131,28 +131,30 @@ describe('Products View', () => {
       </MemoryRouter>
     );
 
-    expect(fetchCategories).toHaveBeenCalled()
+    expect(fetchCategories).toHaveBeenCalled();
     await waitFor(() => expect(fetchProducts).toHaveBeenCalled());
 
     const filterByCat = () => {
-      const categoryFilter = screen.getByLabelText(/category/i); 
+      const categoryFilter = screen.getByLabelText(/category/i);
       fireEvent.change(categoryFilter, { target: { value: 'Electronics' } });
 
       const applyFiltersButton = screen.getByText(/apply filters/i);
       fireEvent.click(applyFiltersButton);
-    }
-    
-    await waitFor(() => {
-      filterByCat()
-    })
+    };
 
-    await waitFor(() => expect(fetchProductsByCategoy).toHaveBeenCalledWith(
-      'Electronics',
-      expect.anything(), 
-      expect.anything(), 
-      expect.anything(),
-      undefined 
-    ));
+    await waitFor(() => {
+      filterByCat();
+    });
+
+    await waitFor(() =>
+      expect(fetchProductsByCategoy).toHaveBeenCalledWith(
+        'Electronics',
+        expect.anything(),
+        expect.anything(),
+        expect.anything(),
+        undefined
+      )
+    );
 
     expect(screen.getByText('Test Product 1')).toBeInTheDocument();
     expect(screen.queryByText('Test Product 2')).not.toBeInTheDocument();
@@ -166,7 +168,7 @@ describe('Products View', () => {
       stock: 10,
       category: 'Electronics',
       description: 'A sample product',
-    }
+    };
     const extendedMockProducts = mockProducts.concat(Array(30).fill(fillObj));
     (fetchProducts as jest.Mock).mockResolvedValueOnce({
       products: extendedMockProducts.slice(0, 20),
@@ -186,11 +188,11 @@ describe('Products View', () => {
     await waitFor(() => expect(fetchProducts).toHaveBeenCalled());
 
     await waitFor(() => {
-      const nextPageButton = screen.getByText(/next/i); 
+      const nextPageButton = screen.getByText(/next/i);
       fireEvent.click(nextPageButton);
       expect(screen.getByText('Test Product 1')).toBeInTheDocument();
       expect(fetchProducts).toHaveBeenCalledTimes(2);
-    });  
+    });
 
     (fetchProducts as jest.Mock).mockResolvedValueOnce({
       products: extendedMockProducts.slice(21),
@@ -209,7 +211,7 @@ describe('Products View', () => {
 
     await waitFor(() => {
       expect(screen.getByText(/Page 2/)).toBeInTheDocument();
-    });  
+    });
   });
 
   test('handles product search', async () => {
@@ -228,7 +230,7 @@ describe('Products View', () => {
       products: mockSearchedProducts,
       total: 1,
     });
-  
+
     render(
       <MemoryRouter>
         <AuthContext.Provider value={mockAuthContext}>
@@ -240,10 +242,10 @@ describe('Products View', () => {
     );
 
     await waitFor(() => expect(fetchProducts).toHaveBeenCalled());
-  
+
     const searchInput = screen.getByPlaceholderText(/search/i);
     fireEvent.change(searchInput, { target: { value: 'Test Product 2' } });
-  
+
     const searchButton = screen.getByText(/search/i);
     fireEvent.click(searchButton);
 
@@ -256,10 +258,10 @@ describe('Products View', () => {
         undefined
       )
     );
-  
+
     await waitFor(() => {
-      expect(screen.getByText('Test Product 2')).toBeInTheDocument()
-      expect(screen.queryByText('Test Product 1')).not.toBeInTheDocument()
+      expect(screen.getByText('Test Product 2')).toBeInTheDocument();
+      expect(screen.queryByText('Test Product 1')).not.toBeInTheDocument();
     });
   });
 });

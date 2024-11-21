@@ -3,13 +3,13 @@ import ProductDetails from '../views/ProductDetails/ProductDetails';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { CartContext } from '../context/cartContext';
 import { AuthContext } from '../context/authContext';
-import { fetchProductById } from '../api/productApi'
+import { fetchProductById } from '../api/productApi';
 import { showToastifyError, showToastifySuccess } from '../config/toastifyConfig';
 import '@testing-library/jest-dom';
 import { useParams } from 'react-router-dom';
 
 jest.mock('../api/productApi', () => ({
-  fetchProductById: jest.fn() 
+  fetchProductById: jest.fn(),
 }));
 
 jest.mock('../config/toastifyConfig', () => ({
@@ -23,11 +23,11 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const mockAuthContext = {
-  user: { 
-    id: 1, 
+  user: {
+    id: 1,
     firstName: 'test',
     lastName: 'user',
-    username: 'testuser' 
+    username: 'testuser',
   },
   checkToken: false,
   setUser: jest.fn(),
@@ -54,16 +54,16 @@ describe('ProductDetails', () => {
     rating: 4.5,
     thumbnail: 'img1.jpg',
     images: ['img1.jpg', 'img2.jpg', 'img3.jpg'],
-  }
+  };
   test('renders product details correctly', async () => {
     (useParams as jest.Mock).mockReturnValue({ id: '1' });
     (fetchProductById as jest.Mock).mockResolvedValue(mockResponse);
     render(
-        <AuthContext.Provider value={mockAuthContext}>
-          <CartContext.Provider value={mockCartContext}>
-            <ProductDetails />
-          </CartContext.Provider>
-        </AuthContext.Provider>
+      <AuthContext.Provider value={mockAuthContext}>
+        <CartContext.Provider value={mockCartContext}>
+          <ProductDetails />
+        </CartContext.Provider>
+      </AuthContext.Provider>
     );
 
     await waitFor(() => expect(fetchProductById).toHaveBeenCalled());
@@ -76,7 +76,7 @@ describe('ProductDetails', () => {
       expect(screen.getByText('Electronics')).toBeInTheDocument();
       expect(screen.getByText('Brand A')).toBeInTheDocument();
       expect(screen.getByText('4.5')).toBeInTheDocument();
-    }
+    };
 
     await waitFor(() => {
       test();
@@ -87,13 +87,13 @@ describe('ProductDetails', () => {
     (useParams as jest.Mock).mockReturnValue({ id: '1' });
     (fetchProductById as jest.Mock).mockResolvedValue(mockResponse);
     render(
-        <Router>
-          <AuthContext.Provider value={mockAuthContext}>
-            <CartContext.Provider value={mockCartContext}>
-              <ProductDetails />
-            </CartContext.Provider>
-          </AuthContext.Provider>
-        </Router>
+      <Router>
+        <AuthContext.Provider value={mockAuthContext}>
+          <CartContext.Provider value={mockCartContext}>
+            <ProductDetails />
+          </CartContext.Provider>
+        </AuthContext.Provider>
+      </Router>
     );
 
     await waitFor(() => screen.getByText(/Test Product/));
@@ -114,7 +114,7 @@ describe('ProductDetails', () => {
         thumbnail: 'img1.jpg',
       },
       5
-    )
+    );
 
     expect(showToastifySuccess).toHaveBeenCalledWith('5 item(s) added to the cart!');
   });
@@ -124,11 +124,11 @@ describe('ProductDetails', () => {
     (fetchProductById as jest.Mock).mockResolvedValue(mockResponse);
     const cartItemMock = {
       id: 1,
-      title: "Test Product", 
-      price: 100,         
-      quantity: 2,             
-      thumbnail: "image_url", 
-    }
+      title: 'Test Product',
+      price: 100,
+      quantity: 2,
+      thumbnail: 'image_url',
+    };
     render(
       <Router>
         <AuthContext.Provider value={mockAuthContext}>
@@ -147,6 +147,9 @@ describe('ProductDetails', () => {
     const addToCartButton = screen.getByText('Add to Cart');
     fireEvent.click(addToCartButton);
 
-    expect(showToastifyError).toHaveBeenCalledWith('Cannot add more than available stock.', 'moreThenStock');
+    expect(showToastifyError).toHaveBeenCalledWith(
+      'Cannot add more than available stock.',
+      'moreThenStock'
+    );
   });
 });

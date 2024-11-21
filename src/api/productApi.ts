@@ -1,8 +1,8 @@
 import { ProductResponse, Product } from '../types/ProductModels';
 import { sortQueryMap } from '../types/FilterModels';
-import { refreshToken } from './authApi';
+import { checkAndRefreshToken } from './authApi';
 
-const BASE_URL = 'https://dummyjson.com/products';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const fetchProducts = async (
   select: string,
@@ -11,7 +11,7 @@ export const fetchProducts = async (
   sort = 'none'
 ): Promise<ProductResponse> => {
   const sortByQuery = sortQueryMap[sort];
-  const url = `${BASE_URL}?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
+  const url = `${BASE_URL}/products?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
   return sendRequest(url);
 };
 
@@ -23,7 +23,7 @@ export const fetchProductsByCategoy = async (
   sort = 'none'
 ): Promise<ProductResponse> => {
   const sortByQuery = sortQueryMap[sort];
-  const url = `${BASE_URL}/category/${category}/?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
+  const url = `${BASE_URL}/products/category/${category}/?limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
   return sendRequest(url);
 };
 
@@ -35,19 +35,19 @@ export const searchProducts = async (
   sort = 'none'
 ): Promise<ProductResponse> => {
   const sortByQuery = sortQueryMap[sort];
-  const url = `${BASE_URL}/search?q=${query}&&limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
+  const url = `${BASE_URL}/products/search?q=${query}&&limit=${limit}&skip=${skip}&select=${select}${sortByQuery}`;
   return sendRequest(url);
 };
 
 export const fetchProductById = async (id: number): Promise<Product> => {
-  const url = `${BASE_URL}/${id}`;
+  const url = `${BASE_URL}/products/${id}`;
   return sendRequest(url);
 };
 
 const sendRequest = async (url: string) => {
   try {
     const token = localStorage.getItem('authToken');
-    if(token) refreshToken(token)
+    if (token) checkAndRefreshToken(token);
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Error fetching products: ${response.statusText}`);

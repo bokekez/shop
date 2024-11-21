@@ -1,7 +1,9 @@
 import { Categories } from '../types/FilterModels';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const fetchCategories = async (): Promise<Categories[]> => {
-  const url = 'https://dummyjson.com/products/categories';
+  const url = `${BASE_URL}/products/categories`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

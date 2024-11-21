@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <CartProvider>
         <Router>
           <ToastContainer />
-           <NavBar />
+          <NavBar />
           <AppRoutes />
         </Router>
       </CartProvider>
