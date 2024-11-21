@@ -69,17 +69,18 @@ const Products: React.FC = () => {
         filters.sortBy
       );
 
-      response.products = response.products.filter(
-        (product) =>
-          product && product.price >= minPriceNormalized && product.price <= maxPriceNormalized
-      );
-
+      if(minPriceNormalized > 0 || maxPriceNormalized < Infinity) {
+        response.products = response.products.filter(
+          (product) =>
+            product && product.price >= minPriceNormalized && product.price <= maxPriceNormalized
+        );
+      }
       return response;
     }
     return await fetchProducts(PRODUCTS_SELECT, PRODUCTS_PER_PAGE, skip, filters.sortBy);
   };
 
-  const lastPage = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
+  const lastPage = products.length < 20 && currentPage === 1 ? 1 : Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 
   const handleNextPage = () => {
     if (currentPage < lastPage) {
