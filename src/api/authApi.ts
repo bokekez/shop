@@ -1,5 +1,5 @@
 const BASE_URL = 'https://dummyjson.com/auth';
-import { UserResponse } from '../types/UserInterfaces';
+import { UserResponse } from '../types/UserModels';
 
 export const loginUser = async (username: string, password: string): Promise<UserResponse> => {
   try {

@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode, FC, useEffect } from 'react';
-import { User, AuthContextType } from '../types/UserInterfaces';
+import { User, AuthContextType } from '../types/UserModels';
 import { checkUserToken } from '../api/authApi';
 import { showToastifySuccess } from '../config/toastifyConfig';
 

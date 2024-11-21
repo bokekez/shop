@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import styles from './ProductTable.module.css';
-import { ProductTableProps } from '../../types/ProductInterfaces';
+import { ProductTableProps } from '../../types/ProductModels';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
 import { CartContext } from '../../context/cartContext';
-import { CartItem } from '../../types/CartInterfaces';
-import { Product } from '../../types/ProductInterfaces';
+import { CartItem } from '../../types/CartModels';
+import { Product } from '../../types/ProductModels';
 import { showToastifyWarning } from '../../config/toastifyConfig';
 import Spinner from '../Spinner/Spinner';
 

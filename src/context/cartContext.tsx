@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode, FC, useEffect, useContext } from 'react';
-import { CartItem, CartContextType } from '../types/CartInterfaces';
+import { CartItem, CartContextType } from '../types/CartModels';
 import { AuthContext } from './authContext';
 
 const defaultCartContext: CartContextType = {

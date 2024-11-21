@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Search.module.css';
-import { SearchProps } from '../../types/ProductInterfaces';
+import { SearchProps } from '../../types/ProductModels';
 
 const Search: React.FC<SearchProps> = ({ onSearch, searchString }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
