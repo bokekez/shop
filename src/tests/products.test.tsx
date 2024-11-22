@@ -171,7 +171,7 @@ describe('Products View', () => {
         .fill(null)
         .map((_, index) => ({
           ...fillObj,
-          id: mockProducts.length + index + 1, 
+          id: mockProducts.length + index + 1,
         }))
     );
     (fetchProducts as jest.Mock).mockResolvedValueOnce({
