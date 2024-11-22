@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import styles from './Login.module.css';
 import { loginUser } from '../../api/authApi';
 import { showToastifyError, showToastifySuccess } from '../../config/toastifyConfig';
-import { LoginProps } from '../../types/LoginInfercaes';
+import { LoginProps } from '../../types/LoginModels';
 import { AuthContext } from '../../context/authContext';
 
 const Login: React.FC<LoginProps> = ({ handleCloseLoginDialog }) => {

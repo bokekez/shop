@@ -7,5 +7,5 @@ module.exports = {
     '\\.module\\.css$': 'identity-obj-proxy',
     '\\.css$': '<rootDir>/__mocks__/styleMock.js',
   },
-  setupFiles: ["<rootDir>/jest.setup.ts"],
+  setupFiles: ['<rootDir>/jest.setup.ts'],
 };
